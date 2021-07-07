@@ -87,7 +87,7 @@ const gw = '6287880120452@s.whatsapp.net'
 namabot = '*YTEAM BOT*' //Ganti Nama Bot Kalian
 welcome: false
 namaowner = 'David' //Ganti Seterah Kalian
-public = false
+public = true
 let tictactoe = []
 let conn = new global.constructor()
 
