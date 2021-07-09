@@ -209,7 +209,6 @@ Vid.on('group-update', async(chat) => {
     }
     }) 
 Vid.on('group-participants-update', async (anu) => {
-	if (!welkom.includes(anu.jid)) return
 		try {
 			const mdata = await Vid.groupMetadata(anu.jid)
 			console.log(anu)
