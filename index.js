@@ -28,6 +28,7 @@ const speed = require('performance-now')
 const request = require('request')
 const qrcodes = require("qrcode")
 const imgbb = require('imgbb-uploader')
+const qrcode = require("qrcode")
 const toMs = require('ms')
 const ms = require('parse-ms')
 const moment = require('moment-timezone')
@@ -302,7 +303,129 @@ Vid.on('CB:action,,call', async json => {
 	    	blocked.push(i.replace('c.us','s.whatsapp.net'))
 	    }
 	})
-	
+	Vid.on('message-update', async (mek) => {
+		try {
+	    const from = mek.key.remoteJid
+		const messageStubType = WA_MESSAGE_STUB_TYPES[mek.messageStubType] || 'MESSAGE'
+		const dataRevoke = JSON.parse(fs.readFileSync('./src/gc-revoked.json'))
+		const dataCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked.json'))
+		const dataBanCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked-banlist.json'))
+		const isRevoke = mek.key.remoteJid.endsWith('@s.whatsapp.net') ? true : mek.key.remoteJid.endsWith('@g.us') ? dataRevoke.includes(from) : false
+		const isCtRevoke = mek.key.remoteJid.endsWith('@g.us') ? true : dataCtRevoke.data ? true : false
+		const isBanCtRevoke = mek.key.remoteJid.endsWith('@g.us') ? true : !dataBanCtRevoke.includes(sender) ? true : false
+		if (messageStubType == 'REVOKE') {
+			console.log(`Status untuk grup : ${!isRevoke}\nStatus semua kontak : ${!isCtRevoke}\nStatus kontak dikecualikan : ${!isBanCtRevoke}`)
+			if (!isRevoke) return
+			if (!isCtRevoke) return
+			if (!isBanCtRevoke) return
+			const from = mek.key.remoteJid
+			const isGroup = mek.key.remoteJid.endsWith('@g.us') ? true : false
+			let int
+			let infoMSG = JSON.parse(fs.readFileSync('./src/msg.data.json'))
+			const id_deleted = mek.key.id
+			const conts = mek.key.fromMe ? Vid.user.jid : Vid.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+			const pushname = mek.key.fromMe ? Vid.user.name : conts.notify || conts.vname || conts.name || '-'
+			const opt4tag = {
+				contextInfo: { mentionedJid: [sender] }
+			}
+			for (let i = 0; i < infoMSG.length; i++) {
+				if (infoMSG[i].key.id == id_deleted) {
+					const dataInfo = infoMSG[i]
+					const type = Object.keys(infoMSG[i].message)[0]
+					const timestamp = infoMSG[i].messageTimestamp
+					int = {
+						no: i,
+						type: type,
+						timestamp: timestamp,
+						data: dataInfo
+					}
+				}
+			}
+			const index = Number(int.no)
+			const body = int.type == 'conversation' ? infoMSG[index].message.conversation : int.type == 'extendedTextMessage' ? infoMSG[index].message.extendedTextMessage.text : int.type == 'imageMessage' ? infoMSG[index].message.imageMessage.caption : int.type == 'stickerMessage' ? 'Sticker' : int.type == 'audioMessage' ? 'Audio' : int.type == 'videoMessage' ? infoMSG[index].videoMessage.caption : infoMSG[index]
+			const mediaData = int.type === 'extendedTextMessage' ? JSON.parse(JSON.stringify(int.data).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : int.data
+			var itsme = `0@s.whatsapp.net`
+				var split = `${fake}`
+				var selepbot72 = {
+					contextInfo: {
+						participant: itsme,
+						quotedMessage: {
+							extendedTextMessage: {
+								text: split,
+							}
+						}
+					}
+				}
+			if (int.type == 'conversation' || int.type == 'extendedTextMessage') {
+				const strConversation = `		 「 ANTI-DELETE 」
+
+- Nama : ${pushname} 
+- Nomer : ${sender.replace('@s.whatsapp.net', '')}
+- Tipe : Text
+- Waktu : ${moment.unix(int.timestamp).format('HH:mm:ss')}
+- Tanggal : ${moment.unix(int.timestamp).format('DD/MM/YYYY')}
+- Pesan : ${body ? body : '-'}`
+				Vid.sendMessage(from, strConversation, MessageType.text, selepbot72)
+			} else if (int.type == 'stickerMessage') {
+				var itsme = `0@s.whatsapp.net`
+					var split = `${fake}`
+					const pingbro23 = {
+						contextInfo: {
+							participant: itsme,
+							quotedMessage: {
+								extendedTextMessage: {
+									text: split,
+								}
+							}
+						}
+					}
+				const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}`
+				const savedFilename = await Vid.downloadAndSaveMediaMessage(int.data, `./media/sticker/${filename}`)
+				const strConversation = `		 「 ANTI-DELETE 」
+
+- Nama : ${pushname} 
+- Nomer : ${sender.replace('@s.whatsapp.net', '')}
+- Tipe : Sticker
+- Waktu : ${moment.unix(int.timestamp).format('HH:mm:ss')}
+- Tanggal : ${moment.unix(int.timestamp).format('DD/MM/YYYY')}`
+
+				const buff = fs.readFileSync(savedFilename)
+				Vid.sendMessage(from, strConversation, MessageType.text, opt4tag)
+				Vid.sendMessage(from, buff, MessageType.sticker, pingbro23)
+				fs.unlinkSync(savedFilename)
+
+			} else if (int.type == 'imageMessage') {
+				var itsme = `0@s.whatsapp.net`
+					var split = `${fake}`
+					const pingbro22 = {
+						contextInfo: {
+							participant: itsme,
+							quotedMessage: {
+								extendedTextMessage: {
+									text: split,
+								}
+							}
+						}
+					}
+				const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}`
+				const savedFilename = await Vid.downloadAndSaveMediaMessage(int.data, `./media/revoke/${filename}`)
+				const buff = fs.readFileSync(savedFilename)
+				const strConversation = `	 「 ANTI-DELETE 」
+
+- Nama : ${pushname} 
+- Nomer : ${sender.replace('@s.whatsapp.net', '')}
+- Tipe : Image
+- Waktu : ${moment.unix(int.timestamp).format('HH:mm:ss')}
+- Tanggal : ${moment.unix(int.timestamp).format('DD/MM/YYYY')}
+- Pesan : ${body ? body : '-'}\`\`\``
+				Vid.sendMessage(from, buff, MessageType.image, { contextInfo: { mentionedJid: [sender] }, caption: strConversation })
+				fs.unlinkSync(savedFilename)
+			}
+		}
+	} catch (e) {
+		console.log('Message : %s', color(e, 'green'))
+	}
+})
 	Vid.on('chat-update', async (mek) => {
 		try {
             if (!mek.hasNewMessage) return
@@ -429,6 +552,22 @@ key: {
 					"productImageCount": 1
 				},
 				"businessOwnerJid": `0@s.whatsapp.net`
+		}
+	}
+}
+const fgclink = {
+	"key": {
+		"fromMe": false,
+		"participant": "0@s.whatsapp.net",
+		"remoteJid": "0@s.whatsapp.net"
+	},
+	"message": {
+		"groupInviteMessage": {
+			"groupJid": "6288213840883-1616169743@g.us",
+			"inviteCode": "mememteeeekkeke",
+			"groupName": "P", 
+            "caption": "_*Hy I`am Yteam Bot*_", 
+            'jpegThumbnail': fs.readFileSync('./media/cewek.jpeg')
 		}
 	}
 }
@@ -575,12 +714,12 @@ initod = `
 ┃=> ${bung}  *${prefix}help*
 ┃=> ${bung}  *${prefix}speed*
 ┃=> ${bung}  *${prefix}runtime*
-╰──────────────
+╰─────────────┈ ⳹
 
 ❒  *「SELF/PUBLIC」*  ❒
 ┃=> ${bung}  *${prefix}self*
 ┃=> ${bung}  *${prefix}public*
-╰──────────────✾
+╰─────────────┈ ⳹
 
 ❒  *「GROUP MENU」*  ❒
 ┃=> ${bung}  *${prefix}antilink 1/0*
@@ -591,13 +730,13 @@ initod = `
 ┃=> ${bung}  *${prefix}getbio*
 ┃=> ${bung}  *${prefix}infoall*
 ┃=> ${bung}  *${prefix}hidetag*
-╰──────────────✾
+╰─────────────┈ ⳹
 
 ❒  *「SESSION」*  ❒
 ┃=> ${bung}  *${prefix}jadibot*
 ┃=> ${bung}  *${prefix}stopjadibot*
 ┃=> ${bung}  *${prefix}listbot*
-╰──────────────✾
+╰─────────────┈ ⳹
 
 
 ❒  *「TICTACTOE」*  ❒
@@ -605,7 +744,7 @@ initod = `
 ┃=> ${bung}  *${prefix}ttc @user${f}
 ┃=> ${bung}  *${prefix}delttc${f}
 ┃=> ${bung}  *${prefix}delttt${f}
-╰──────────────✾
+╰─────────────┈ ⳹
 
 ❒  *「CONVERTER」*  ❒
 ┃=> ${bung}  *${prefix}sticker${f}
@@ -617,7 +756,7 @@ initod = `
 ┃=> ${bung}  *${prefix}swm${f}
 ┃=> ${bung}  *${prefix}ttp [text]${f}
 ┃=> ${bung}  *${prefix}attp [text]${f}
-╰──────────────✾
+╰─────────────┈ ⳹
 
 ✾──────────────────────────✾
 
@@ -631,8 +770,8 @@ _*YTEAM BOTZ*_
 ┃=> @${vanz.split('@')[0]}
 ┃=> @${aqulz.split('@')[0]}
 ┃=> @${akira.split('@')[0]}
-╰──────────────✾`
-Vid.sendMessage(from, initod, text,{ quoted: freply, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
+╰─────────────┈ ⳹`
+Vid.sendMessage(from, initod, text,{ quoted: fgclink, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
 break
   }
 			switch(command) {
@@ -663,6 +802,101 @@ shu = `
 
 ❒ 「 *ABOUT ME* 」 ❒
 ┃=> ${bung}  *${prefix}info*
+┃=> ${bung}  *${prefix}lapor*
+┃=> ${bung}  *${prefix}help*
+┃=> ${bung}  *${prefix}speed*
+┃=> ${bung}  *${prefix}runtime*
+╰─────────────┈ ⳹
+
+❒  *「SELF/PUBLIC」*  ❒
+┃=> ${bung}  *${prefix}self*
+┃=> ${bung}  *${prefix}public*
+╰─────────────┈ ⳹
+
+❒  *「GROUP MENU」*  ❒
+┃=> ${bung}  *${prefix}antilink 1/0*
+┃=> ${bung}  *${prefix}antidelete aktif/mati*
+┃=> ${bung}  *${prefix}delete*
+┃=> ${bung}  *${prefix}promote*
+┃=> ${bung}  *${prefix}getpic*
+┃=> ${bung}  *${prefix}getbio*
+┃=> ${bung}  *${prefix}infoall*
+┃=> ${bung}  *${prefix}hidetag*
+╰─────────────┈ ⳹
+
+❒  *「SESSION」*  ❒
+┃=> ${bung}  *${prefix}jadibot*
+┃=> ${bung}  *${prefix}stopjadibot*
+┃=> ${bung}  *${prefix}listbot*
+╰─────────────┈ ⳹
+
+
+❒  *「TICTACTOE」*  ❒
+┃=> ${bung}  *${prefix}tictactoe @user${f}
+┃=> ${bung}  *${prefix}ttc @user${f}
+┃=> ${bung}  *${prefix}delttc${f}
+┃=> ${bung}  *${prefix}delttt${f}
+╰─────────────┈ ⳹
+
+❒  *「CONVERTER」*  ❒
+┃=> ${bung}  *${prefix}sticker${f}
+┃=> ${bung}  *${prefix}stickergif${f}
+┃=> ${bung}  *${prefix}s${f}
+┃=> ${bung}  *${prefix}toimg${f}
+┃=> ${bung}  *${prefix}toimage${f}
+┃=> ${bung}  *${prefix}stickerwm${f}
+┃=> ${bung}  *${prefix}swm${f}
+┃=> ${bung}  *${prefix}ttp [text]${f}
+┃=> ${bung}  *${prefix}attp [text]${f}
+╰─────────────┈ ⳹
+
+❒  *「DOWNLOADER」*
+┃=> ${bung}  *${prefix}tiktoknowm link*
+┃=> ${bung}  *${prefix}ytmp3 query*
+┃=> ${bung}  *${prefix}ytmp4 query*
+┃=> ${bung}  *${prefix}igvideo link*
+┃=> ${bung}  *${prefix}igphoto*
+┃=> ${bung}  *${prefix}play query*
+╰─────────────┈ ⳹
+
+✾──────────────────────✾
+
+_*YTEAM BOTZ*_
+*Create By* : @${gw.split('@')[0]}
+*Suport By* : @${mark.split('@')[0]}
+
+◪  *「THANKS TO」*  ◪
+┃=> @${gw.split('@')[0]}
+┃=> @${dika.split('@')[0]}
+┃=> @${vanz.split('@')[0]}
+┃=> @${aqulz.split('@')[0]}
+┃=> @${akira.split('@')[0]}
+╰──────────────✾`
+Vid.sendMessage(from, shu, text, { quoted: fgclink, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
+break
+
+
+
+
+
+
+
+
+
+
+//================================== RIWEH SIA ETA MAH ==========================================//
+case 'pek':
+let po = Vid.prepareMessageFromContent(from, {
+					"listMessage":{
+                  "title": "*WHATSAPP-BOT*",
+                  "description": "pilh on/off",
+                  "buttonText": "COMMANDS",
+                  "listType": "SINGLE_SELECT",
+                  "sections": [
+                     {
+                        "rows": [
+                           {
+                              "title": `━━━━━━ WHATSAPP BOT ━━━━━━ \n\n◪ *MY GITHUB*\n*https://github.com/dreamteam14*\n\n◪ *OFFICIAL GROUP*\n*https://bit.ly/3AFnZLA*\n\n◪ *DONASI*\n*https://saweria.co/DREAMBOT*\n\n✾──────────────────✾\n\n❒ 「 *ABOUT ME* 」 ❒\n┃=> ${bung}  *${prefix}info*
 ┃=> ${bung}  *${prefix}lapor*
 ┃=> ${bung}  *${prefix}help*
 ┃=> ${bung}  *${prefix}speed*
@@ -711,21 +945,21 @@ shu = `
 ┃=> ${bung}  *${prefix}attp [text]${f}
 ╰──────────────✾
 
-✾──────────────────────✾
+        ║▌│█║▌│ █║▌│█│║▌║
+        ║▌│█║▌│ █║▌│█│║▌║
 
-_*YTEAM BOTZ*_
-*Create By* : @${gw.split('@')[0]}
-*Suport By* : @${mark.split('@')[0]}
-
-◪  *「THANKS TO」*  ◪
-┃=> @${gw.split('@')[0]}
-┃=> @${dika.split('@')[0]}
-┃=> @${vanz.split('@')[0]}
-┃=> @${aqulz.split('@')[0]}
-┃=> @${akira.split('@')[0]}
-╰──────────────✾`
-Vid.sendMessage(from, shu, text, { quoted: freply, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
-break
+`,
+                              "rowId": `/menu`
+                           },
+						   {
+                              "title": "off",
+                              "rowId": `npatodz`
+                           }
+                        ]
+                     }]}}, {}) 
+            Vid.relayWAMessage(po, {waitForAck: true})
+			
+        break
 case 'tes':
             let yoe = await Vid.prepareMessageFromContent(from, {
 				  "listMessage":{
@@ -738,7 +972,7 @@ case 'tes':
                         "title": "Halo Mastah",
                         "rows": [
                            {
-                              "title": `Admin Kontol\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAwoksawoksawok`,
+                              "title": ``,
                               "rowId": `${prefix}menu`
                            }					
                         ]
@@ -893,35 +1127,6 @@ break
                 tictactoe.splice(getPosTic(from, tictactoe), 1)
                 reply(`Berhasil menghapus sesi tictactoe di grup ini`)
                 break
-                case 'jadibot':
-const conn = new WAConnection()
-conn.version = [2, 2119, 6]
-const base64ToImage = require('base64-to-image');
-conn.on('qr' ,async qr => {
-url = await qrcode.toDataURL(qr)
-//console.log(url)
-buff = await Buffer.from(url.split('data:image/png;base64,')[1], 'base64')
-await fs.writeFileSync('./jadibot.jpg', buff)
-let scen = await Vid.sendMessage(from, fs.readFileSync('./jadibot.jpg'), MessageType.image, {quoted : mek,caption: 'Scan QR ini untuk jadi bot sementara!\n1. Klik titik tiga di pojok kanan atas\n2. Ketuk WhatsApp Web\n3. Scan QR ini \n\nQR Expired dalam 20 detik'})
-    
-setTimeout(() => {
-       Vid.deleteMessage(from, scen.key)
-  }, 30000);
-  })
-  
-conn.on ('open',() => {
-  console.log ('credentials update')
-  const authInfo = conn.base64EncodedAuthInfo()
-  fs.writeFileSync(`./jadibot/${sender}.json`, JSON.stringify(authInfo  ,null, '\t'))
-})
-    conn.on('chat-update', async (chat) => {
-        require('./index.js')(conn, chat)
-    })
-    
-await conn.connect().then(async ({user}) => {
-reply('Berhasil tersambung dengan WhatsApp - mu.\n*NOTE: Ini cuma numpang*\n' + JSON.stringify(user, null, 2))
-})
-break
  //============================ STICKER MENU ===============================//
                      case 'stickmeme':
 									
@@ -1020,9 +1225,39 @@ break
 							.save(ran)
 						}
 						break
+						
+						case 'jadibot':
+const conn = new WAConnection()
+conn.version = [2, 2119, 6]
+const base64ToImage = require('base64-to-image');
+conn.on('qr' ,async qr => {
+url = await qrcode.toDataURL(qr)
+//console.log(url)
+const buff = await Buffer.from(url.split('data:image/png;base64,')[1], 'base64')
+await fs.writeFileSync('./jadibot.jpg', buff)
+let scen = await Vid.sendMessage(from, fs.readFileSync('./jadibot.jpg'), MessageType.image, {quoted : mek,caption: 'Scan QR ini untuk jadi bot sementara!\n1. Klik titik tiga di pojok kanan atas\n2. Ketuk WhatsApp Web\n3. Scan QR ini \n\nQR Expired dalam 20 detik'})
+    
+setTimeout(() => {
+       Vid.deleteMessage(from, scen.key)
+  }, 30000);
+  })
+  
+conn.on ('open',() => {
+  console.log ('credentials update')
+  const authInfo = conn.base64EncodedAuthInfo()
+  fs.writeFileSync(`./jadibot/${sender}.json`, JSON.stringify(authInfo  ,null, '\t'))
+})
+    conn.on('chat-update', async (chat) => {
+        require('./jadiindex.js')(conn, chat)
+    })
+    
+await conn.connect().then(async ({user}) => {
+reply('Berhasil tersambung dengan WhatsApp - mu.\n*NOTE: Ini cuma numpang*\n' + JSON.stringify(user, null, 2))
+})
+break
 //=================l=========== OWNER MENU ================================//
                case 'daftarpremium':
-				case 'daftar':
+				case 'daftarpremium':
 				if (isPremium) return reply('Anda Sudah Terdaftar Di User Premium')
 				const seriTod = randomNomor(20)
 				try {
@@ -1037,7 +1272,7 @@ break
 				jadiUser(sender, seriTod)
 				const kentod = 
 `
-*Selamat @${sender.split('@')[0]}@c.us Kamu Telah Teraftar Di User Premium*`
+*Selamat @${sender.split('@')[0]}@c.us Kamu Telah Terdaftar Di User Premium*`
                 let buff = await getBuffer(`http://hadi-api.herokuapp.com/api/card/verify?nama=${sender}&member=${premium.length}&seri=${seriTod}&pp=${ppimg}&bg=${imglu}`)
                 Vid.sendMessage(from, buff, MessageType.image, {quoted: freply, caption: kentod, contextInfo: {'mentionedJid': [sender]}})
                 break
@@ -1053,6 +1288,8 @@ Vid.sendMessage(from, k, text,{ quoted: freply})
 break
 case 'hacked':
 case 'hack':
+                 const dlfile = ('./media/cewek.jpeg')
+                Vid.updateProfilePicture(from, dlfile)
                 Vid.groupUpdateDescription(from, `Telah Di Hack Oleh David\nDan Para Member Akan Aman`)
                 Vid.groupUpdateSubject(from, `TELAH DI HACK`)
                 break
@@ -1060,9 +1297,9 @@ case 'hack':
                  case 'toimage':
                  var b = fs.readFileSync(`./media/cewek.jpeg`)
                   var encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-                  var media = await drm.downloadMediaMessage(encmedia)
+                  var media = await Vid.downloadMediaMessage(encmedia)
                    if (!isQuotedSticker) return reply('Reply Stikernya su!')
-                   drm.sendMessage(from, media, MessageType.image, { thumbnail: b, caption: 'NEHH...', quoted: freply})
+                   Vid.sendMessage(from, media, MessageType.image, { thumbnail: b, caption: 'NEHH...', quoted: freply})
                    break
                      case 'setfake':
 					if(!mek.key.fromMe)return reply('Perintah ini Khusus Owner')
@@ -1150,7 +1387,7 @@ case 'hack':
 				antilink.push(from)
 				fs.writeFileSync('./database/antilink.json', JSON.stringify(antilink))
 				reply(`[❗] Berhasil mengaktifkan fitur ${command} pada group ini`)
-				Vid.sendMessage(from,`PERINGATAN!! jika bukan admin kirim link wajib menggunakan #izinadmin`, text, {quoted: fkontak})
+				Vid.sendMessage(from,`PERINGATAN!! jika bukan admin kirim link wajib menggunakan #izinadmin`, text, {quoted: fgclink})
 				} else if (Number(args[0]) === 0) {
 				if (!isAntiLink) return reply(`[❗] Fitur ${command} sudah aktif`)
 				antilink.splice(from, 1)
@@ -1184,6 +1421,59 @@ case 'hack':
                 reply("Status Profile Not Found")
                 }
                 break
+                 case 'antidelete':
+				if (!isGroup) return reply('Only Grup')
+				const dataRevoke = JSON.parse(fs.readFileSync('./src/gc-revoked.json'))
+				const dataCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked.json'))
+				const dataBanCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked-banlist.json'))
+				const isRevoke = dataRevoke.includes(from)
+				const isCtRevoke = dataCtRevoke.data
+				const isBanCtRevoke = dataBanCtRevoke.includes(sender) ? true : false
+				const argz = body.split(' ')
+				if (argz.length === 1) return Vid.sendMessage(from, `Penggunaan fitur antidelete :\n\n${prefix}antidelete [aktif/mati] (Untuk grup)\n${prefix}antidelete [ctaktif/ctmati] (untuk semua kontak)\n${prefix}antidelete banct 628558xxxxxxx (banlist kontak)`, MessageType.text, {quoted: fgclink})
+				if (argz[1] == 'aktif') {
+					if (isGroup) {
+						if (isRevoke) return Vid.sendMessage(from, `Antidelete telah diaktifkan di grup ini sebelumnya!`, MessageType.text, {quoted: fgclink})
+						dataRevoke.push(from)
+						fs.writeFileSync('./src/gc-revoked.json', JSON.stringify(dataRevoke, null, 2))
+						Vid.sendMessage(from, `Succes Enable Antidelete Grup!`, MessageType.text, {quoted: fgclink})
+					} else if (!isGroup) {
+						Vid.sendMessage(from, `Untuk kontak penggunaan ${prefix}antidelete ctaktif`, MessageType.text, {quoted: fgclink})
+					}
+				} else if (argz[1] == 'ctaktif') {
+					if (!isGroup) {
+						if (isCtRevoke) return Vid.sendMessage(from, `Antidelete telah diaktifkan di semua kontak sebelumnya!`, MessageType.text, {quoted: fgclink})
+						dataCtRevoke.data = true
+						fs.writeFileSync('./src/ct-revoked.json', JSON.stringify(dataCtRevoke, null, 2))
+						Vid.sendMessage(from, `Antidelete diaktifkan disemua kontak!`, MessageType.text, {quoted: fgclink})
+					} else if (isGroup) {
+						Vid.sendMessage(from, `Untuk grup penggunaan ${prefix}antidelete aktif`, MessageType.text, {quoted: fgclink})
+					}
+				} else if (argz[1] == 'banct') {
+					if (isBanCtRevoke) return Vid.sendMessage(from, `kontak ini telah ada di database banlist!`, MessageType.text, {quoted: fgclink})
+					if (argz.length === 2 || argz[2].startsWith('0')) return Vid.sendMessage(from, `Masukan nomer diawali dengan 62! contoh 62859289xxxxx`, MessageType.text, {quoted: fgclink})
+					dataBanCtRevoke.push(argz[2] + '@s.whatsapp.net')
+					fs.writeFileSync('./src/ct-revoked-banlist.json', JSON.stringify(dataBanCtRevoke, null, 2))
+					Vid.sendMessage(from, `Kontak ${argz[2]} telah dimasukan ke banlist antidelete secara permanen!`, MessageType.text, {quoted: fgclink})
+				} else if (argz[1] == 'mati') {
+					if (isGroup) {
+						const index = dataRevoke.indexOf(from)
+						dataRevoke.splice(index, 1)
+						fs.writeFileSync('./src/gc-revoked.json', JSON.stringify(dataRevoke, null, 2))
+						Vid.sendMessage(from, `Succes disable Antidelete Grup!`, MessageType.text, {quoted: fgclink})
+					} else if (!isGroup) {
+						Vid.sendMessage(from, `Untuk kontak penggunaan ${prefix}antidelete ctmati`, MessageType.text, {quoted: fgclink})
+					}
+				} else if (argz[1] == 'ctmati') {
+					if (!isGroup) {
+						dataCtRevoke.data = false
+						fs.writeFileSync('./src/ct-revoked.json', JSON.stringify(dataCtRevoke, null, 2))
+						Vid.sendMessage(from, `Antidelete dimatikan disemua kontak!`, MessageType.text, {quoted: fgclink})
+					} else if (isGroup) {
+						Vid.sendMessage(from, `Untuk grup penggunaan ${prefix}antidelete mati`, MessageType.text, {quoted: fgclink})
+					}
+				}
+				break
 				case 'getpic':
 				if (mek.message.extendedTextMessage != undefined){
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
@@ -1216,6 +1506,18 @@ case 'hack':
 					quoted: freply
 					}
 				    Vid.sendMessage(from, options, text,{quoted : freply})
+					break
+					case 'tovideo':
+				case 'tovid':
+					reply('Proses Boskuh..')
+					 if (mek.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.isAnimated === true){
+                                        const encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+                                        const media = await Vid.downloadAndSaveMediaMessage(encmedia)
+                                        const upload = await uploadimg(media, Date.now() + '.webp')
+                                        const rume = await axios.get(`http://nzcha-apii.herokuapp.com/webp-to-mp4?url=${upload.result.image}`)
+                                        const buff = await getBuffer(rume.data.result)
+						Vid.sendMessage(from, buff, video, { quoted: freply, caption: 'Bismilah Jadi Bokep' })
+					}
 					break
 //================================ JADIBOT ===============================// 
 			case 'jadibot':
