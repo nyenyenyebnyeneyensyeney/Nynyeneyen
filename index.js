@@ -237,7 +237,7 @@ Semoga Betah Ye
 ┗━━━━━━━━━━━━━━━━━━━━━
 `
 				let buff = await getBuffer(ppimg)
-				Vid.sendMessage(mdata.id, teks, MessageType.text, {quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, remoteJid: `0@s.whatsapp.net` }, message: { groupInviteMessage: { groupJid: "62816566217-1617422360@g.us", inviteCode: "EiznDZqIWu40QPVO0Q9MVn", groupName: "                          ", caption: "*YTEAM BOTZ*\nCreate By : *DAVID*", 'jpegThumbnail': fs.readFileSync('./media/cewek.jpeg')} } }})
+				Vid.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
 				num = anu.participants[0]
 				try {
@@ -829,6 +829,19 @@ shu = `
 ┃=> ${bung}  *${prefix}listbot*
 ╰─────────────┈ ⳹
 
+❒  *「ATTP / TTP」*  ❒
+┃=> ${bung}  *${prefix}attp text*
+┃=> ${bung}  *${prefix}ttp text*
+┃=> ${bung}  *${prefix}ttp1 text*
+┃=> ${bung}  *${prefix}ttp2 text*
+┃=> ${bung}  *${prefix}ttp3 text*
+╰─────────────┈ ⳹
+
+❒  *「RANDOM」*  ❒
+┃=> ${bung}  *${prefix}quotes*
+┃=> ${bung}  *${prefix}randomquotes*
+┃=> ${bung}  *${prefix}cersex*
+╰─────────────┈ ⳹
 
 ❒  *「TICTACTOE」*  ❒
 ┃=> ${bung}  *${prefix}tictactoe @user${f}
@@ -882,7 +895,18 @@ break
 
 
 
-
+//====================== RANDOM MENU =============//
+                       case 'quotes':
+                       case 'randomquotes':
+                       hu = await fetchJson('https://pecundang.herokuapp.com/api/randomquote')
+                       nye = `*Quotes Hari ini = \n${hu.result.quotes}*`
+                       Vid.sendMessage(from, nye, text,{ quoted: freply})
+                       break
+                       case 'cersex':
+                       ne = await fetchJson(`https://pecundang.herokuapp.com/api/cersex`)
+                       nyu = `*JUDUL* : *${ne.result.judul}*\n*CERITA* : ${ne.result.cerita}`
+                      Vid.sendMessage(from, nyu, text,{ quoted: freply})
+                      break
 //================================== RIWEH SIA ETA MAH ==========================================//
 case 'pek':
 let po = Vid.prepareMessageFromContent(from, {
@@ -1363,6 +1387,38 @@ case 'hack':
 				   }
 				   })
 					break
+		        case 'attp':
+                //[❗] case by DappaGanz
+                try {
+                if (args.length < 1) return reply(`teksnya mana bruh?\ncontoh ${prefix + command} ${pushname}`)
+                dpuhy = args.join(' ')
+                reply(mess.wait)
+                dapuhy = await getBuffer(`https://api.xteam.xyz/attp?file&text=${dpuhy}`)
+                dp.sendMessage(from, dapuhy, sticker, {quoted: freply})
+                } catch (e) {
+				console.log(`Error :`, color(e,'red'))
+				reply(mess.error)
+				}
+                break
+                case 'ttp':
+                david = args.join(" ")
+                gugu = await getBuffer(`https://pecundang.herokuapp.com/api/texttopng?teks=${david}`)
+                Vid.sendMessage(from, gugu, sticker, { quoted: fgclink})
+                break
+                case 'ttp1':
+               nye = args.join(" ")
+               nyu = await getBuffer(`https://pecundang.herokuapp.com/api/texttopng2?teks=${nye}`)
+               Vid.sendMessage(from, nyu, sticker,{ quoted: mek})
+               break
+               case 'ttp2':
+               nyi = args.join(" ")
+               nyk = await getBuffer(`https://pecundang.herokuapp.com/api/texttopng3?teks=${nyi}`)
+               Vid.sendMessage(from, nyk, sticker,{ quoted: freply})
+               break
+               case 'ttp3':
+               ab = args.join(" ")
+               ac = await getBuffer(`https://pecundang.herokuapp.com/api/texttopng4?teks=${ab}`)
+               break
 //============================ ANIME MENU =========================//
                                               case 'randomhentai':
                                         gatauda = body.slice(6)
@@ -1377,7 +1433,7 @@ case 'hack':
                 reply('_*Bot ini Menggunakan Sc : www.xnxx.com*_')
                 break
 //============================ GROUP MENU ================================//
-            case 'antilink':
+                case 'antilink':
 			    if (!mek.key.fromMe) return reply('*Perintah ini Khusus Owner & Admin Group*')
 		        if (!isGroup) return reply('Hanya Bisa Digunakan Di grup')					
 				if (args.length < 1) return reply('[❗] Tambahkan parameter 1 untuk mengaktifkan dan 0 untuk menonaktifkan')
@@ -1473,6 +1529,11 @@ case 'hack':
 					}
 				}
 				break
+				case 'attp':
+				anakkon = args.join(" ")
+				ni = await getBuffer(`https://pecundang.herokuapp.com/api/attp?teks=${anakkon}`)
+				Vid.sendMessage(from, ni, sticker,{ quoted : freply})
+				break
 				case 'getpic':
 				if (mek.message.extendedTextMessage != undefined){
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
@@ -1531,7 +1592,20 @@ case 'hack':
       Vid.reply(m.chat, 'Berhasil tersambung dengan WhatsApp - mu.\n*NOTE: Ini cuma numpang*\n' + JSON.stringify(user, null, 2), m)
     })
       break
-    
+     case 'listbot':
+    su = `
+*LIST BOT*
+BOT 1 : 
+@${vanz.split('@')[0]}
+
+BOT 2
+@${gw.split('@')[0]}
+
+BOT 3 : 
+undefined
+`
+Vid.sendMessage(from, su, text,{ quoted: freply, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
+break
                case 'stopjadibot':
 			    reply('Bye Bye ...')
 			    break
