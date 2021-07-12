@@ -57,6 +57,7 @@ const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
 const premium = JSON.parse(fs.readFileSync('./database/public.json'))
 const setting = JSON.parse(fs.readFileSync('./src/settings.json'))
+const user = JSON.parse(fs.readFileSync('./database/level.json'))
 const antilink = JSON.parse(fs.readFileSync('./database/antilink.json'))
 const tictac = require('./lib/tictac')
 const { isTicTacToe, getPosTic } = require('./lib/tictactoe')
@@ -66,7 +67,7 @@ const sleep = async (ms) => {
 }
 //*********** CUSTOMABLE ***********//
 prefix = '' //Biarin Aja Nanti Emror
-f = '*'
+f = '```'
 blocked = []
 s = '❒'
 a = '```'
@@ -89,10 +90,19 @@ namabot = '*YTEAM BOT*' //Ganti Nama Bot Kalian
 welcome: false
 namaowner = 'David' //Ganti Seterah Kalian
 public = true
+hit_today = []
 let tictactoe = []
 let conn = new global.constructor()
 
 //*********** VCARD  ***********//
+const vcard16 = 'BEGIN:VCARD\n'
+                 + 'VERSION:3.0\n'
+                   + 'N:;DAVID GNZ.;;;\n'
+                   + 'FN:DAVID GNZ\n'
+                   + 'TEL;type=CELL;type=VOICE;waid=6285865829368:+6285865829368\n'
+                   + 'X-WA-BIZ-NAME:DAVIDGNZ\n'
+                   + 'X-WA-BIZ-DESCRIPTION:Creator Dream Bot\n'
+                   + 'END:VCARD'
 const vcard = 'BEGIN:VCARD\n'
             + 'VERSION:3.0\n'
             + `FN:${namaowner}︎\n`
@@ -132,6 +142,8 @@ const lord = 'BEGIN:VCARD\n'
 
 //***********SET APIKEY***********//
 const Lolkey = 'OpenVcs500k'
+const davidsu = 'RGIKYQQP'
+
 
   const jadiUser = (userid, sender, age, time, serials) => {
             const obj = { id: userid, name: sender, age: age, time: time, serial: serials }
@@ -189,7 +201,7 @@ Vid.on('group-update', async(chat) => {
     var group = await Vid.groupMetadata(from)
     if(!chat.desc == ''){
     var tag = chat.descOwner.split('@')[0] + '@s.whatsapp.net'
-    var teks = `「 *Group Description Change* 」\n\nDeskripsi Group telah diubah oleh\n❒ ${s}Admin : @${chat.descOwner.split('@')[0]}${s}\n❒ ${s}Pada : ${tanggal()}${s}\n❒ ${s}Deskripsi Baru${s} :\n ${chat.desc}`
+    var teks = `「 *Group Description Change* 」\n\nDeskripsi Group telah diubah oleh\n◪ ${s}Admin : @${chat.descOwner.split('@')[0]}${s}\n◪ ${s}Pada : ${tanggal()}${s}\n❒ ${s}Deskripsi Baru${s} :\n ${chat.desc}`
     Vid.sendMessage(group.id, teks, MessageType.text, {contextInfo: {"mentionedJid": [tag]}})
     console.log(`「 *Group Description Change* 」 In ${group.subject}`)
     } else if(chat.announce == 'false') {
@@ -209,6 +221,7 @@ Vid.on('group-update', async(chat) => {
     }
     }) 
 Vid.on('group-participants-update', async (anu) => {
+	if (!welkom.includes(anu.jid)) return
 		try {
 			const mdata = await Vid.groupMetadata(anu.jid)
 			console.log(anu)
@@ -492,6 +505,10 @@ Vid.on('CB:action,,call', async json => {
 			const isNsfw = isGroup ? nsfw.includes(from) : false
 			const isSimi = isGroup ? samih.includes(from) : false
 			const isPremium = premium.includes(sender)
+			const isUser = user.includes(sender)
+			pushname = Vid.contacts[sender] != undefined ? Vid.contacts[sender].vname || Vid.contacts[sender].notify : undefined
+			 hit_today.push(command)
+			resbutton = (type == 'listResponseMessage') ? mek.message.listResponseMessage.selectedDisplayText : ''
 			const isOwner = ownerNumber.includes(sender)
 			const q = args.join(' ')
 			const isUrl = (url) => {
@@ -500,11 +517,8 @@ Vid.on('CB:action,,call', async json => {
 			const reply = (teks) => {
 				Vid.sendMessage(from, teks, text, {quoted:freply})
 			}
-			 const textImg = (teks) => {
-            return Vif.sendMessage(from, teks, text, {quoted: freply, thumbnail: fs.readFileSync(`image/Om.jpeg`)})
-           }
 			const sendMess = (hehe, teks) => {
-				Vid.sendMessage(hehe, teks, text)
+				Vid.sendMessage(hehe, teks, text,{quoted : fbc})
 			}
 			const mentions = (teks, memberr, id) => {
 				(id == null || id == undefined || id == false) ? Vid.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Vid.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
@@ -512,6 +526,9 @@ Vid.on('CB:action,,call', async json => {
 			    function randomNomor(angka){
             return Math.floor(Math.random() * angka) + 1
              }
+        const reply1 = (teks) => {
+            return Vid.sendMessage(from, teks, text, {quoted: mek, thumbnail: fs.readFileSync('./media/cewek.jpeg')})
+        }
 
           const fakegroup = (teks) => {
 			Vid.sendMessage(from, teks, text, {
@@ -527,9 +544,11 @@ Vid.on('CB:action,,call', async json => {
 			})
 		}
 const fdocu = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "documentMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "title": fake, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync('media/mek.jpeg')}}}
-const freply = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": `*YTEAM BOTZ*\nCREATE BY : *DAVID*`, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync(`media/Vid.jpeg`)} } }
+const fbc = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": `*From Owner*\n=> *${body}*`, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync(`media/Vid.jpeg`)} } }
+const freply = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": `*DREAM BOT*\nCREATE BY : *DAVID*`, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync(`media/Vid.jpeg`)} } }
+const freply1 = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": `*DREAM BOT*\nCREATE BY : *DAVID*`, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync(`media/Vid.jpeg`)} } }
 const fsc = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": `*SELL SC SELF BOT*`, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync(`media/Vid.jpeg`)} } }
-const ftroli = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": `*YTEAM BOTZ*\nCREATE BY : *DAVID*`, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync(`media/Vid.jpeg`)} } }
+const ftroli = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": `*DREAM BOT*\nCREATE BY : *DAVID*`, "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": fs.readFileSync(`media/Vid.jpeg`)} } }
 
 const ftoko = {
 key: {
@@ -620,6 +639,7 @@ const fgclink = {
       if (!public){
       if (!mek.key.fromMe) return
       }
+
 //============== ANTILINK =================//
         if (isGroup && isAntiLink && !isOwner && !isGroupAdmins && isBotGroupAdmins){
         if (chats.match(/(https:\/\/chat.whatsapp.com)/gi)) {
@@ -628,8 +648,11 @@ const fgclink = {
           }
         }
         
-//============================ EVAL =========1==========//
-
+//====================== AUTO REGIST =============//
+        if (isCmd && !isUser){
+			user.push(sender)
+			fs.writeFileSync('./database/level.json', JSON.stringify(user))
+        } 
 //============== FUNCTION TICTACTOE ============= //
             if (isTicTacToe(from, tictactoe)) tictac(budy, prefix, tictactoe, from, sender, reply, mentions)        
 
@@ -682,217 +705,832 @@ const fgclink = {
 			} 
 			switch(stickCmd) {
 				
+				case 'T2/oLTcurPM2bRK7PNCnKO53iiozl6cHBiXQ8ML+TPI=':
+				Vid.sendMessage(from, {displayname: 'David', vcard: vcard16}, MessageType.contact, {quoted: mek})
+				break
+				case 'uiMtHPGYWebifghktjpFpIPFnjQdJ9bdxmkt/b1KrtU=':
+				members_id = []
+				teks = (args.length > 1) ? body.slice(8).trim() : ''
+				teks += '\n\n'
+				for (let mem of groupMembers) {
+				teks += `➡️ @${mem.jid.split('@')[0]}\n`
+				members_id.push(mem.jid)
+				}
+				mentions(teks, members_id, true)
+				break
 case 'UfDmtwiZmqNrDCsDWINg0D+ZphsXUy6IT1QF8qju6B4=':
-console.log(color('STCK CMD: OYY'))
-const statu = public ? 'PUBLIC': 'SELF'
-                reply('Loading Menu Yteam Bot')
-initod = `
-━━━━ *WHATSAPP BOT* ━━━ 
+                         const Mark = '0@s.whatsapp.net'
+                         const gambar = fs.readFileSync('./media/kera.jpeg')
+                         const iduladha = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=20&bulan=9&tahun=2021')
+                         const ulangthn = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=14&bulan=9&tahun=2021')
+                         const tahunbru = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=1&bulan=1&tahun=2022')
+           const statuss = public ? 'PUBLIC': 'SELF'
+           uptime = process.uptime()
+           const timestampi = speed();
+           const latensip = speed() - timestampi
+shu = `*Hallo Kack @${sender.split('@')[0]}*
 
-◪ *MY GITHUB*
-*https://github.com/dreamteam14*
+_*MENUJU IDUL ADHA*_
+${iduladha.result}
 
-◪ *MY YOUTUBE*
-*https://bit.ly/3xpb9iA*
+_*MENUJU ULANG TAHUN OWNER*_
+${ulangthn.result}
 
-◪ *OFFICIAL GROUP*
-*https://bit.ly/3AFnZLA*
+_*MENUJU TAHUN BARU*_
+${tahunbru.result}
 
-◪ *DONASI*
-*https://saweria.co/FARDANWINX*
-
-◪ *KONTAK ME*
-@${gw.split('@')[0]}
-
-✾──────────────────✾
-*Hallo Kak @${sender.split('@')[0]}*
-
-❒ 「*ABOUT ME*」 ❒
-┃=> ${bung}  *${prefix}info*
-┃=> ${bung}  *${prefix}lapor*
-┃=> ${bung}  *${prefix}help*
-┃=> ${bung}  *${prefix}speed*
-┃=> ${bung}  *${prefix}runtime*
+╭─ *「 INFO DREAM BOT 」*
+│
+│❒  *My Owner* : @${gw.split('@')[0]}
+│❒  *Prefix Bot*    : *「 ${prefix} 」*
+│❒  *Handphone* : Realme C12
+│❒  *Versi Whatsapp* : *${Vid.user.phone.wa_version}*
+│❒  *Speed*  : _${latensip.toFixed(4)} Second_
 ╰─────────────┈ ⳹
 
-❒  *「SELF/PUBLIC」*  ❒
-┃=> ${bung}  *${prefix}self*
-┃=> ${bung}  *${prefix}public*
+✽─────────────────── ✽
+
+*Your Progress* :
+*Tag* : @${sender.split('@')[0]}
+*Status* : ${mek.key.fromMe ? 'Premium' : 'Gratisan'}
+
+*About Me* : 
+*Nama : Dream Bot*
+*Owner : @${gw.split('@')[0]}*
+*Status* : *${mek.key.fromMe ? 'Premium' : 'Gratisan'}*
+*Api* : wa.me/6285865829368
+
+✽─────────────────── ✽
+
+◪ *RUNTIME & Speed*
+*Runtime :* *${kyun(uptime)}*
+*Speed : ${latensip.toFixed(4)} Second*
+
+          *TOTAL USER* : 
+         _${user.lenght}_
+          
+         *TOTAL HIT*
+         _${hit_today.length}_
+          
+
+╭─ *「 BOT START 」*
+│❒  ${f}${prefix}menu${f}
+│❒  ${f}${prefix}help${f}
+│❒  ${f}${prefix}info${f}
+│❒  ${f}${prefix}owner${f}
+│❒  ${f}${prefix}sc${f}
 ╰─────────────┈ ⳹
 
-❒  *「GROUP MENU」*  ❒
-┃=> ${bung}  *${prefix}antilink 1/0*
-┃=> ${bung}  *${prefix}antidelete aktif/mati*
-┃=> ${bung}  *${prefix}delete*
-┃=> ${bung}  *${prefix}promote*
-┃=> ${bung}  *${prefix}getpic*
-┃=> ${bung}  *${prefix}getbio*
-┃=> ${bung}  *${prefix}infoall*
-┃=> ${bung}  *${prefix}hidetag*
+╭─ *「 CONVERTER 」*
+│❒ ${bung}  *${prefix}sticker${f}
+│❒ ${bung}  *${prefix}stickergif${f}
+│❒ ${bung}  *${prefix}s${f}
+│❒ ${bung}  *${prefix}toimg${f}
+│❒ ${bung}  *${prefix}toimage${f}
+│❒ ${bung}  *${prefix}stickerwm${f}
+│❒ ${bung}  *${prefix}swm${f}
+│❒ ${bung}  *${prefix}ttp [text]${f}
+│❒ ${bung}  *${prefix}attp [text]${f}
 ╰─────────────┈ ⳹
 
-❒  *「SESSION」*  ❒
-┃=> ${bung}  *${prefix}jadibot*
-┃=> ${bung}  *${prefix}stopjadibot*
-┃=> ${bung}  *${prefix}listbot*
+╭─ *「 SELF / PUBLIC 」*
+│❒ ${bung}  *${prefix}self*
+│❒ ${bung}  *${prefix}public*
 ╰─────────────┈ ⳹
 
-
-❒  *「TICTACTOE」*  ❒
-┃=> ${bung}  *${prefix}tictactoe @user${f}
-┃=> ${bung}  *${prefix}ttc @user${f}
-┃=> ${bung}  *${prefix}delttc${f}
-┃=> ${bung}  *${prefix}delttt${f}
+╭─ *「 GROUP MENU 」*
+│❒ ${bung}  *${prefix}antilink 1/0*
+│❒ ${bung}  *${prefix}antidelete aktif/mati*
+│❒ ${bung}  *${prefix}delete*
+│❒ ${bung}  *${prefix}promote*
+│❒ ${bung}  *${prefix}getpic*
+│❒ ${bung}  *${prefix}getbio*
+│❒ ${bung}  *${prefix}infoall*
+│❒ ${bung}  *${prefix}hidetag*
 ╰─────────────┈ ⳹
 
-❒  *「CONVERTER」*  ❒
-┃=> ${bung}  *${prefix}sticker${f}
-┃=> ${bung}  *${prefix}stickergif${f}
-┃=> ${bung}  *${prefix}s${f}
-┃=> ${bung}  *${prefix}toimg${f}
-┃=> ${bung}  *${prefix}toimage${f}
-┃=> ${bung}  *${prefix}stickerwm${f}
-┃=> ${bung}  *${prefix}swm${f}
-┃=> ${bung}  *${prefix}ttp [text]${f}
-┃=> ${bung}  *${prefix}attp [text]${f}
+╭─ *「 TICTACTOE 」*
+│❒ ${bung}  *${prefix}tictactoe @user${f}
+│❒ ${bung}  *${prefix}ttc @user${f}
+│❒ ${bung}  *${prefix}delttc${f}
+│❒ ${bung}  *${prefix}delttt${f}
 ╰─────────────┈ ⳹
 
-✾──────────────────────────✾
+╭─ *「 MENU ANIME 」*
+│❒ ${bung}  *${prefix}randomwaifu${f}
+│❒ ${bung}  *${prefix}randomwaifu1${f}
+│❒ ${bung}  *${prefix}neko1${f}
+│❒ ${bung}  *${prefix}kusonime${f}
+│❒ ${bung}  *${prefix}loli${f}
+│❒ ${bung}  *${prefix}randomhusbu${f}
+╰─────────────┈ ⳹
 
-_*YTEAM BOTZ*_
-*Create By* : @${gw.split('@')[0]}
-*Suport By* : @${mark.split('@')[0]}
+╭─ *「                             」*
+│❒ ${bung}  *${prefix}renungan${f}
+│❒ ${bung}  *${prefix}samehadaku${f}
+│❒ ${bung}  *${prefix}infonomer${f}
+│❒ ${bung}  *${prefix}jadwaltv${f}
+│❒ ${bung}  *${prefix}tvjadwal${f}
+│❒ ${bung}  *${prefix}fake${f}
+│❒ ${bung}  *${prefix}pink 「Link」${f}
+╰─────────────┈ ⳹
 
-◪  *「THANKS TO」*  ◪
-┃=> @${gw.split('@')[0]}
-┃=> @${dika.split('@')[0]}
-┃=> @${vanz.split('@')[0]}
-┃=> @${aqulz.split('@')[0]}
-┃=> @${akira.split('@')[0]}
-╰─────────────┈ ⳹`
-Vid.sendMessage(from, initod, text,{ quoted: fgclink, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
+╭─ *「 MAKER COMMMANDS 」*
+│❒ ${bung}  *${prefix}neon1${f}
+│❒ ${bung}  *${prefix}text3d${f}
+│❒ ${bung}  *${prefix}galaxy${f}
+│❒ ${bung}  *${prefix}gaming${f}
+│❒ ${bung}  *${prefix}colors${f}
+│❒ ${bung}  *${prefix}qrcode${f}
+╰─────────────┈ ⳹
+
+╭─ *「 STALKER COMMANDS 」*
+│❒ ${bung}  *${prefix}stalkig${f}
+│❒ ${bung}  *${prefix}igstalk${f}
+│❒ ${bung}  *${prefix}githubstalk${f}
+│❒ ${bung}  *${prefix}ghstalk${f}
+╰─────────────┈ ⳹
+
+╭─ *「 ATTP & TTP 」*
+│❒ ${bung}  *${prefix}attp*
+│❒ ${bung}  *${prefix}ttp*
+│❒ ${bung}  *${prefix}ttp1*
+│❒ ${bung}  *${prefix}ttp2*
+│❒ ${bung}  *${prefix}ttp3*
+╰─────────────┈ ⳹
+
+╭─ *「 SESSION MENU 」*
+│❒ ${bung}  *${prefix}jadibot*
+│❒ ${bung}  *${prefix}stopjadibot*
+│❒ ${bung}  *${prefix}listbot*
+╰─────────────┈ ⳹
+
+        ║▌│█║▌│ █║▌│█│║▌║
+        ║▌│█║▌│ █║▌│█│║▌║
+  
+*Thanks To : @${Mark.split('@')[0]}*`
+Vid.sendMessage(from, gambar, image, { quoted: freply, caption: shu, contextInfo: {"mentionedJid": [Mark, gw, dika, aqulz, akira, sender]}})
 break
   }
 			switch(command) {
                           case 'help':
                          case 'menu':
+                         const Mark = '0@s.whatsapp.net'
+                         const gambar = fs.readFileSync('./media/kera.jpeg')
+                         const iduladha = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=20&bulan=9&tahun=2021')
+                         const ulangthn = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=14&bulan=9&tahun=2021')
+                         const tahunbru = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=1&bulan=1&tahun=2022')
            const statuss = public ? 'PUBLIC': 'SELF'
-                reply('Loading Menu Yteam Bot')
-shu = `
-━━━━━━ WHATSAPP BOT ━━━━━━ 
+           uptime = process.uptime()
+           const timestampi = speed();
+                    var groups = Vid.chats.array.filter(v => v.jid.endsWith('g.us'))
+					  var private = Vid.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+           const latensip = speed() - timestampi
+shu = `*Hallo Kack @${sender.split('@')[0]}*
 
-◪ *MY GITHUB*
-*https://github.com/dreamteam14*
 
-◪ *MY YOUTUBE*
-*https://bit.ly/3xpb9iA*
+◪ *MY  INFO*
+🌴 *Owner : @${gw.split('@')[0]}*
+🌴 *Wa Version : 2.21.12.21*
+🌴 *Server : Baileys*
+🌴 *Browser : Chrome*
+🌴 *Total Chat : ${totalchat.length}*
+🌴 *Total Group : ${groups.length}*
+🌴 *Private Chat : ${private.length}*
 
-◪ *OFFICIAL GROUP*
-*https://bit.ly/3AFnZLA*
+✽─────────────────── ✽
 
-◪ *DONASI*
-*https://saweria.co/DREAMBOT*
+*Your Progress* :
+*Tag* : @${sender.split('@')[0]}
+*Status* : ${mek.key.fromMe ? 'Premium' : 'Gratisan'}
 
-◪ *KONTAK ME*
-@${gw.split('@')[0]}
+*About Me* : 
+*Nama : Dream Bot*
+*Owner : @${gw.split('@')[0]}*
+*Status* : *Premium*
+*Api* : wa.me/6285865829368
 
-✾──────────────────✾
-*Hallo Kack @${sender.split('@')[0]}*
+✽─────────────────── ✽
 
-❒ 「 *ABOUT ME* 」 ❒
-┃=> ${bung}  *${prefix}info*
-┃=> ${bung}  *${prefix}lapor*
-┃=> ${bung}  *${prefix}help*
-┃=> ${bung}  *${prefix}speed*
-┃=> ${bung}  *${prefix}runtime*
-╰─────────────┈ ⳹
+*RUNTIME & Speed*
+*Runtime :* *${kyun(uptime)}*
+*Speed : ${latensip.toFixed(4)} Second*
 
-❒  *「SELF/PUBLIC」*  ❒
-┃=> ${bung}  *${prefix}self*
-┃=> ${bung}  *${prefix}public*
-╰─────────────┈ ⳹
+*TOTAL USER*
+_${user.lenght}_
 
-❒  *「GROUP MENU」*  ❒
-┃=> ${bung}  *${prefix}antilink 1/0*
-┃=> ${bung}  *${prefix}antidelete aktif/mati*
-┃=> ${bung}  *${prefix}delete*
-┃=> ${bung}  *${prefix}promote*
-┃=> ${bung}  *${prefix}getpic*
-┃=> ${bung}  *${prefix}getbio*
-┃=> ${bung}  *${prefix}infoall*
-┃=> ${bung}  *${prefix}hidetag*
-╰─────────────┈ ⳹
+*TOTAL HIT TODAY*
+${hit_today.lenght}
 
-❒  *「SESSION」*  ❒
-┃=> ${bung}  *${prefix}jadibot*
-┃=> ${bung}  *${prefix}stopjadibot*
-┃=> ${bung}  *${prefix}listbot*
-╰─────────────┈ ⳹
-
-❒  *「ATTP / TTP」*  ❒
-┃=> ${bung}  *${prefix}attp text*
-┃=> ${bung}  *${prefix}ttp text*
-┃=> ${bung}  *${prefix}ttp1 text*
-┃=> ${bung}  *${prefix}ttp2 text*
-┃=> ${bung}  *${prefix}ttp3 text*
-╰─────────────┈ ⳹
-
-❒  *「RANDOM」*  ❒
-┃=> ${bung}  *${prefix}quotes*
-┃=> ${bung}  *${prefix}randomquotes*
-┃=> ${bung}  *${prefix}cersex*
-╰─────────────┈ ⳹
-
-❒  *「TICTACTOE」*  ❒
-┃=> ${bung}  *${prefix}tictactoe @user${f}
-┃=> ${bung}  *${prefix}ttc @user${f}
-┃=> ${bung}  *${prefix}delttc${f}
-┃=> ${bung}  *${prefix}delttt${f}
-╰─────────────┈ ⳹
-
-❒  *「CONVERTER」*  ❒
-┃=> ${bung}  *${prefix}sticker${f}
-┃=> ${bung}  *${prefix}stickergif${f}
-┃=> ${bung}  *${prefix}s${f}
-┃=> ${bung}  *${prefix}toimg${f}
-┃=> ${bung}  *${prefix}toimage${f}
-┃=> ${bung}  *${prefix}stickerwm${f}
-┃=> ${bung}  *${prefix}swm${f}
-┃=> ${bung}  *${prefix}ttp [text]${f}
-┃=> ${bung}  *${prefix}attp [text]${f}
-╰─────────────┈ ⳹
-
-❒  *「DOWNLOADER」*
-┃=> ${bung}  *${prefix}tiktoknowm link*
-┃=> ${bung}  *${prefix}ytmp3 query*
-┃=> ${bung}  *${prefix}ytmp4 query*
-┃=> ${bung}  *${prefix}igvideo link*
-┃=> ${bung}  *${prefix}igphoto*
-┃=> ${bung}  *${prefix}play query*
-╰─────────────┈ ⳹
-
-✾──────────────────────✾
-
-_*YTEAM BOTZ*_
-*Create By* : @${gw.split('@')[0]}
-*Suport By* : @${mark.split('@')[0]}
-
-◪  *「THANKS TO」*  ◪
-┃=> @${gw.split('@')[0]}
-┃=> @${dika.split('@')[0]}
-┃=> @${vanz.split('@')[0]}
-┃=> @${aqulz.split('@')[0]}
-┃=> @${akira.split('@')[0]}
-╰──────────────✾`
-Vid.sendMessage(from, shu, text, { quoted: fgclink, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
+        ║▌│█║▌│ █║▌│█│║▌║
+        ║▌│█║▌│ █║▌│█│║▌║
+  
+*Thanks To : @${Mark.split('@')[0]}*`
+Vid.sendMessage(from, shu, text, { quoted: freply, contextInfo: {"mentionedJid": [Mark, gw, dika, aqulz, akira, sender]}})
+let tod = Vid.prepareMessageFromContent(from, {
+					"listMessage":{
+                  "title": `HALLO ${pushname}`,
+                  "description": "Nih Kak Menunya\nJangan Di Buly Om\nGw Masih Kang Record",
+                  "buttonText": "TOUCH ME",
+                  "listType": "SINGLE_SELECT",
+                  "sections": [
+                     {
+                        "rows": [
+                           {
+                              "title": 'hallo',
+                              "rowId": `/menu`
+                           },
+                                                      {
+                              "title": 'tampilin menu',
+                              "description": "*Untuk Menampilkan Menu*",
+                              "rowId": `/menu`
+                           },
+						   {
+                              "title": ".runtime",
+                              "rowId": `npatodz`
+                           }
+                        ]
+                     }]}}, {}) 
+            Vid.relayWAMessage(tod, {waitForAck: true})
+break
+//====================================REST API DAPPA UHUY========================================//
+//============================================ANIME MENU==============================//
+case 'itsuki':
+reply('Otw Kak')
+su = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=itsuki%20nakano&apikey=${davidsu}`)
+ngen = await getBuffer(su.result)
+Vid.sendMessage(from, ngen, image,{ quoted: mek})
+break
+case 'miku':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=miku&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'nino':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=nino&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'yotsuba':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=yotsuba&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'ichika':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=ichika20%nakano20%miku&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'thanjiro':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=anime20%thanjiro&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'nezuko':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=anime20%nezuko&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'zenitsu':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=anime20%zenitsu&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'giyu':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=anime20%giyu&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
+break
+case 'sakonji':
+reply('Otw Kak')
+ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=anime20%sakonji&apikey=RGIKYQQP`)
+ngen = await getBuffer(ngon.result)
 break
 
+//================================ REST API DAPPA UHUY============================================//
+//======================================OTHER MENU===================================//
+//============================================================================//
+case 'asupan':
+				reply(mess.wait)
+				dapgz = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupan?apikey=${davidsu}`)
+				pideo = await getBuffer(dapgz.result.url)
+				dp.sendMessage(from, pideo, video, {quoted: freply})
+				break
+				case 'asupansantuy':
+				reply(mess.wait)
+				dapgz = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupansantuy?apikey=${davidsu}`)
+				pideo = await getBuffer(dapgz.result.url)
+				Vid.sendMessage(from, pideo, video, {quoted: freply})
+				break
+				case 'asupanbocil':
+				reply(mess.wait)
+				dapgz = await getBuffer(`https://dapuhy-api.herokuapp.com/api/asupan/asupanbocil?apikey=${davidsu}`)
+				pideo = await getBuffer(dapgz.result.url)
+				Vid.sendMessage(from, dapgz, video, {quoted: freply})
+				break
+				case 'asupanukhty':
+				reply(mess.wait)
+				dapgz = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupanukhty?apikey=${davidsu}`)
+				pideo = await getBuffer(dapgz.result.url)
+				Vid.sendMessage(from, pideo, video, {quoted: freply})
+				break
+				case 'asupanrikagusriani':
+				reply(mess.wait)
+				dapgz = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupanrikagusriani?apikey=${davidsu}`)
+				pideo = await getBuffer(dapgz.result.url)
+				Vid.sendMessage(from, pideo, video, {quoted: freply})
+				break
+				case 'asupanghea':
+				reply(mess.wait)
+				dapgz = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupanghea?apikey=${davidsu}`)
+				pideo = await getBuffer(dapgz.result.url)
+				Vid.sendMessage(from, pideo, video, {quoted: freply})
+				break
+				                case 'randomwalpaper':
+                nye = await fetchJson(`https://pecundang.herokuapp.com/api/randomwallpaper`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nye, image,{ quoted: mek})
+                break
+                                case 'teknologi':
+                nye = await fetchJson(`https://pecundang.herokuapp.com/api/wallpaper/teknologi`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nye, image,{ quoted: mek})
+                break
+                                case 'programing':
+                nye = await fetchJson(`https://pecundang.herokuapp.com/api/wallpaper/programming`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nye, image,{ quoted: mek})
+                break
+                                case 'cyberspace':
+                nye = await fetchJson(`https://pecundang.herokuapp.com/api/wallpaper/cyberspace`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nye, image,{ quoted: mek})
+                break
+                
+//================================ REST API DAPPA UHUY============================================//
+//======================================OTHER MENU===================================//
+//============================================================================//
+ case 'infogempa':
+ ngontol = await fetchJson(`https://dapuhy-api.herokuapp.com/api/others/infogempa?apikey=${davidsu}`)
+hamlo = `*INFO GEMPA*\n
+*WAKTU* : ${ngontol.result.Waktu}
+*LINTANG* : ${ngontol.result.Lintang}
+*BUJUR* : ${ngontol.result.Bujur}
+*MAGNITUDO* : ${ngontol.result.Magnitudo}
+*KEDALAMAN* : ${ngontol.result.Kedalaman}
+*Wilayah* : ${ngontol.result.Wilayah}`
+heyo = await getBuffer(ngontol.result.Map)
+Vid.sendMessage(from, heyo, image,{ quoted: mek, caption, hamlo})
+break
+//====================== ================//
+               case 'hash':
+                if (!isQuotedSticker) return reply('Reply Stickernya')
+                const encmeds = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+                const mediastick = await Vid.downloadMediaMessage(encmeds)
+                var crypto = require('crypto')
+                hash = crypto.createHash('sha256').update(mediastick).digest('base64');
+                console.log(color('NGONTOL AMAT KEK WIBU'))
+               reply(hash)
+                break
+//======================  =============//
+                case 'randompegunungan':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/pegunungan?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nye, image,{ quoted: mek})
+                break
+                            case 'bts':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/batues?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case 'blackpink':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/blekpink?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case 'exo':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/exontol?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case 'game':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/game?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case 'teknologi':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/teknologi?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case 'islamic':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/islamic?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case 'cyberspace':
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/randomimage/cyberspace?apikey=${davidsu}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+/*                                                case '':
+                nye = await fetchJson(`${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case '':
+                nye = await fetchJson(`${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case '':
+                nye = await fetchJson(`${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case '':
+                nye = await fetchJson(`${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                                case '':
+                nye = await fetchJson(`${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break*/
+                
+                
+                                case 'artpapercut':
+                shu = args.join(" ")
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/textpro/artpapercut?text=${shu}&apikey=${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                case 'neondevil':
+                shu = args.join(" ")
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/textpro/neondevil?text=${shu}&apikey=${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                case '3dtext':
+                shu = args.join(" ")
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/textpro/3dunderwater?text=${shu}&apikey=${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                case 'bearlogo':
+                shu = args.join(" ")
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/textpro/bearlogo?text=${shu}&apikey=${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+                                case 'biscuittext':
+                shu = args.join(" ")
+                nye = await fetchJson(`https://dapuhy-api.herokuapp.com/api/textpro/biscuit?text=${shu}&apikey=${dappa}`)
+                nyu = await getBuffer(nye.result)
+                Vid.sendMessage(from, nyu, image,{ quoted: mek})
+                break
+//======================  =============//
+               case 'self':
+			    if (!mek.key.fromMe) return reply('OWNER BUKAN?')
+			    public = false
+			    return reply(  `*「 MODE : SELF 」*`, text)
+			    break
+			     case 'public':
+			    if (!mek.key.fromMe) return reply('OWNER BUKAN?')
+			    public = true
+			    return reply(  `*「 MODE : PUBLIC 」*`, text)
+			    break
+//======================  =============//
+/*
+case '':
+       if ((isMedia && !mek.message.videoMessage)) {
+						hhhh = await Vid.downloadAndSaveMediaMessage(mek)
+						ran = getRandom('.webp')
+						await ffmpeg(`./${hhhh}`)
+							.input(hhhh)
+							.on('start', function (cmd) {
+							})
+							.on('error', function (err) {
+								//fs.unlinkSync(hhhh)
+								reply(mess.error.stick)
+							})
+							.on('end', function () {
+								buff = fs.readFileSync(ran)
+								costum(buff, sticker, '0@s.whatsapp.net', monospace('AUTOSTICKER'))
+								//fs.unlinkSync(hhhh)
+								//fs.unlinkSync(ran)
+							})
+							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+							.toFormat('webp')
+							.save(ran)
+				}
+					break
+*/
+//======================  =============//
+case 'addsticker':          
+			    	if (!isQuotedSticker) return reply('Reply stiker nya')
+			     	svst = body.slice(12)
+			    	if (!svst) return reply('Nama sticker nya apa?')
+			    	boij = JSON.parse(JSON.stringify(freply).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
+			     	delb = await Vid.downloadMediaMessage(boij)
+			    	fs.writeFileSync(`./src/sticker/${svst}.webp`, delb)
+			     	fs.writeFileSync('./media', JSON.stringify(setiker))
+			    	Vid.sendMessage(from, `Sukses Menambahkan Sticker kedalam database\nSilahkan Cek dengan cara ${prefix}liststicker`, MessageType.text, { quoted: freply})
+      				break
+//======================  =============//
+  case 'randomwaifu':
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/waifu`)
+                   anu1 = await getBuffer(anu.image)
+                   anu2 = `➻ *NAMA* : ${anu.name}\n`
+                   anu2 += `➻ *DESC* : ${anu.desc}\n`
+                   Vid.sendMessage(from, anu1, image, {caption: anu2, quoted: freply}).catch(e => {
+                   console.log(e)
+	               })
+                   break
+                   case 'randomwaifu1':
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/waifu2`)
+                   anu1 = await getBuffer(anu.img)                    
+                   Vid.sendMessage(from, anu1, image, {quoted: freply}).catch(e => {
+                   console.log(e)
+	               })
+                   break
+                                      case 'qrcode':
+                   if (args.lenght < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} halo sayang*`)  
+
+                   F = body.slice(8)
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/qrcode?text=${F}`)
+                   Vid.sendMessage(from, anu, image, {caption: `nihh kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               })
+                   break
+                   case 'neko1':
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/nekonime`)
+                   anu1 = await getBuffer(anu.result)
+                   Vid.sendMessage(from, anu1, image, {caption: `nih kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               })
+                   break
+                   case 'kusonime':
+                   F = body.slice(10)
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/kuso?q=${F}`)
+                   anu1 = `➻ *INFO* : ${anu.sinopsis}\n`
+                   reply(anu1)
+                   break
+                   case 'renungan':  
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/renungan`)
+                   anu1 = `➻ *JUDUL* : ${anu.judul}\n`
+                   anu1 += `➻ *PESAN* : ${anu.pesan}\n`
+                   anu1 += `➻ *DESC* : ${anu.Isi}\n`
+                   reply(anu1)
+                   break
+                   case 'samehadaku':
+                   F = body.slice(12)
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/samehadaku?q=${F}`)
+                   anu2 = await getBuffer(anu.thumb)
+                   anu1 = `➻ *JUDUL* : ${anu.title}\n`
+                   anu1 += `➻ *LINK* : ${anu.link}\n`
+                   anu1 += `➻ *DESK* : ${anu.desc}\n`
+                   Vid.sendMessage(from, anu2, image, {caption: anu1, quoted: freply })
+                   break
+                   case 'neon1':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} bot whatsapp*`)
+                   F = body.slice(7)				    
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/neon_light?text=${F}`)
+                   Vid.sendMessage(from, anu, image, {caption: `Nihh kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               }) 
+                   break  
+                   case 'text3d':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} bot whatsapp*`)
+                   F = body.slice(8)				    
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/text3d?text=${F}`)
+                   Vid.sendMessage(from, anu, image, {caption: `Nihh kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               }) 
+                   break                   
+                   case 'galaxy':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} bot whatsapp*`)
+                   F = body.slice(8)				    
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/galaxywp?text=${F}`)
+                   Vid.sendMessage(from, anu, image, {caption: `Nihh kack`, quoted: freply}).catch(e => {
+	               freplyz(nyz.error(prefix, command))
+                   console.log(e)
+	               }) 
+                   break
+                   case 'gaming':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} bot whatsapp*`)
+                   F = body.slice(8)				    
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/gaming?text=${F}`)
+                   Vid.sendMessage(from, anu, image, {caption: `Nihh kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               }) 
+                   break
+                   case 'colors':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} bot whatsapp*`)
+                   F = body.slice(8)				    
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/watercolor?text=${F}`)
+                   Vid.sendMessage(from, anu, image, {caption: `Nihh kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               }) 
+                   break
+                   case 'kling':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} bot whatsapp*`)
+                   var F = body.slice(7)
+				   var F1 = F.split("&")[0];
+				   var F2 = F.split("&")[1];    				    
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/sparkling?text1=${F1}&text2=${F2}`)
+                   Vid.sendMessage(from, anu, image, {caption: `Nihh kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               }) 
+                   break
+                   case 'infonomer':
+                   F = body.slice(11)
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/infonomor?no=${F}`)
+                   anu1 = `➻ *NOMER* : ${anu.nomor}\n`
+                   anu1 += `➻ *JUDUL* : ${anu.op}\n`
+                   anu1 += `➻ *JUDUL* : ${anu.international}\n`
+                   reply(anu1)
+                   break
+                   case 'jadwaltv':
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/jadwaltvnow`)
+                   anu1 = `➻ *JAM* : ${anu.result.jam}\n`
+                   anu1 += `➻ *JADWAL* : ${anu.result.jadwalTV}\n`
+                   reply(anu1)
+                   break
+                   case 'tvjadwal':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} gtv*`)
+                   F = body.slice(10)
+                   anu1 = await fetchJson(`https://docs-jojo.herokuapp.com/api/jadwaltv?ch=${F}`)
+                   anu1 = `➻ *JAM* : ${anu.result}`
+                   reply(anu1)
+                   break
+                   case 'fml': 
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/fml`)
+                   anu1 = `➻ *FML* : ${anu.result.fml}`
+                   reply(anu1)
+                   break
+                   case 'cinta': 
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/katacinta`)
+                   anu1 = `➻ *KATA CINTA* : ${anu.result}`
+                   reply(anu1)
+                   break                                                                            
+                   case 'twich': 
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/twichquote`)
+                   anu1 = `➻ *THWICH* : ${anu.result}`
+                   reply(anu1)
+                   break
+                   case 'loli':
+
+                   anu = await getBuffer(`https://docs-jojo.herokuapp.com/api/randomloli`)
+                   Vid.sendMessage(from, anu, image, {caption: `nihh kack`, quoted: freply}).catch(e => {
+	               freplyz(nyz.error(prefix, command))
+                   console.log(e)
+	               })
+                   break
+                   case 'randomhusbu':
+
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/husbuando`)
+                   anu1 = `➻ *NAMA* : ${anu.waifu}`
+                   anu2 = await getBuffer(anu.image)
+                   Vid.sendMessage(from, anu2, image, {caption: anu1, quoted: freply}).catch(e => {
+                   console.log(e)
+	               })                   
+                   break
+                   case 'fake':
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/fake_identity`)
+                   anu1 = `➻ *NAMA* : ${anu.name}\n`
+                   anu1 += `➻ *GENDER* : ${anu.gender}\n` 
+                   anu1 += `➻ *AGE* : ${anu.age}\n`
+                   anu1 += `➻ *BIRTDAY* : ${anu.birtday}\n`
+                   anu1 += `➻ *BACHELOR* : ${anu.Bachelor}\n`
+                   anu1 += `➻ *ADDRESA* : ${anu.address}\n`
+                   anu1 += `➻ *CODE* : ${anu.zip_code}\n`
+                   anu1 += `➻ *STATE* : ${anu.state}\n`
+                   anu1 += `➻ *COUNTRY* : ${anu.country}\n`
+                   anu1 += `➻ *EMAIL* : ${anu.email}\n`
+                   anu1 += `➻ *PASS* : ${anu.password}\n` 
+                   anu1 += `➻ *PHONE* : ${anu.phone}\n` 
+                   anu1 += `➻ *CARD* : ${anu.card}\n`
+                   anu1 += `➻ *CODE* : ${anu.code}\n`
+                   anu1 += `➻ *DATE* : ${anu.date}\n`
+                   anu1 += `➻ *PIN* : ${anu.pin_code}\n`
+                   anu1 += `➻ *WEIGHT* : ${anu.weight}\n` 
+                   anu1 += `➻ *HEIGHT* : ${anu.height}\n` 
+                   anu1 += `➻ *TYPE* : ${anu.blood_type}\n`
+                   anu1 += `➻ *STATUS* : ${anu.status}\n`
+                   reply(anu1)
+                   break
+                   case 'pin':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} https://link*`)
+
+                   F = body.slice(11)
+                   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/pinterest?url=${F}`)
+                   anu1 = await getBuffer(anu.result)
+                   Vid.sendMessage(from, anu1, image, {caption: `nihh kack`, quoted: freply}).catch(e => {
+                   console.log(e)
+	               })
+                   break
+//======================  =============//
+                   case 'stalkig':
+                   case 'igstalk':
+                   if (args.length < 1) return reply(`[❗] CONTOH??\n*${prefix}${command} jokowi*`)
+                   F = body.slice(9)
+
+                   anu = await fetchJson(`https://api.zeks.xyz/api/igstalk?username=${F}&apikey=apivinz`)
+                   anu1 = await getBuffer(anu.profile_pic)
+                   anu2 = `➻ *NAMA* : ${anu.username}\n`
+                   anu2 += `➻ *FULLNAME* : ${anu.fullname}\n`
+                   anu2 += `➻ *FOLLOWERS* : ${anu.follower}\n`
+                   anu2 += `➻ *FOLLOWING* : ${anu.following}\n`
+                   anu2 += `➻ *VERIFY* : ${anu.is_verified}\n`
+                   anu2 += `➻ *BISNIS* : ${anu.is_bussiness}\n`
+                   anu2 += `➻ *PRIVATE* : ${anu.is_private}\n`
+                   anu2 += `➻ *BIO* : ${anu.bio}\n`
+                   anu2 += `➻ *SOURCE* : ${anu.source}\n`
+                   Vid.sendMessage(from, anu1, image, {caption: anu2, quoted: freply}).catch(e => {
+                   console.log(e)
+	               })
+                   break
+                   case 'stalkgithub':
+                    if (args.length < 1) return reply('MASUKKAN USERNAME') 
+					
+                    anu = await fetchJson(`https://videfikri.com/api/github/?username=${args[0]}`, {method: 'get'})
+                    anu1 = await getBuffer(anu.result.profile_pic)                           
+                    anu2 = `➻ *NAMA* : ${anu.result.username}\n`
+                    anu2 += `➻ *ID* : ${anu.result.id}\n`
+                    anu2 += `➻ *USER* : ${anu.result.fullname}\n`
+                    anu2 += `➻ *COMPANY* : ${anu.result.company}\n`
+                    anu2 += `➻ *BLOG* : ${anu.result.blog}\n`
+                    anu2 += `➻ *LOCATION* : ${anu.result.location}\n`
+                    anu2 += `➻ *EMAIL* : ${anu.result.email}\n`
+                    anu2 += `➻ *HIRABLE* : ${anu.result.hireable}\n`
+                    anu2 += `➻ *BIOGRAFI* : ${anu.result.biografi}\n`
+                    anu2 += `➻ *PUBLIC1* : ${anu.result.public_repository}\n`
+                    anu2 += `➻ *PUBLIC2* : ${anu.result.public_gists}\n`
+                    anu2 += `➻ *FOLLOWERS* : ${anu.result.followers}\n`
+                    anu2 += `➻ *FOLLOWING* : ${anu.result.following}\n`
+                    anu2 += `➻ *JOIN* : ${anu.result.joined_on}\n`
+                    anu2 += `➻ *UPDATE* : ${anu.result.last_updated}\n`
+                    anu2 += `➻ *URL* : ${anu.result.profile_url}\n`
+                    Vid.sendMessage(from, anu1, image,{caption: anu2, quoted: freply})
+                    break
+//======================  =============//
 
 
 
 
 
 
+
+
+
+
+//====================== INFO BOT =============//
+case 'buggc':
+await Vid.toggleDisappearingMessages(from)
+Vid.sendMessage(from, `Yoo`, text)
+break
+case 'ping':
+					  const statusss = public ? 'PUBLIC': 'SELF'
+					  var groups = Vid.chats.array.filter(v => v.jid.endsWith('g.us'))
+					  var private = Vid.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+					  const chatsId = await Vid.chats.all()
+                const timestamp = speed();
+                const latensi = speed() - timestamp 
+                p0 =` \`\`\`Loaded Message\`\`\`
+                
+\`\`\` - [ ${totalchat.length} ]  Total Chat\`\`\`
+\`\`\` - [ ${groups.length} ] Group Chat\`\`\`
+\`\`\` - [ ${private.length} ] Private Chat\`\`\`
+\`\`\` - [ ${Vid.user.phone.device_manufacturer} ] HANDPHONE\`\`\`
+\`\`\` - [ ${Vid.user.phone.wa_version} ] WA Version\`\`\`
+\`\`\` - [ Baileys ] Server\`\`\`
+\`\`\` - [ ${statusss} ] MODE\`\`\`
+\`\`\` - [ ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / 4096 ] RAM\`\`\`
+
+\`\`\`Speed : ${latensi.toFixed(4)} Second\`\`\``
+                return reply(p0, text)
+                    break
+                    
+//======================DOWNLOADER =============//
+               case 'play2':   
+			  if (args.length < 1) return reply('*Masukan judul nya?*')
+                reply(mess.wait)
+				play = args.join(" ")
+				anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp4?q=${play}&apikey=apivinz`)
+				if (anu.error) return reply(anu.error)
+				infomp3 = `*「 PLAY VIDEO 」*
+				
+Judul : ${anu.result.title}
+Source : ${anu.result.source}
+				
+*[Wait] Tunggu Sebentar..*`
+				buffer = await getBuffer(anu.result.thumbnail)
+				buffer1 = await getBuffer(anu.result.url_video)
+				Vid.sendMessage(from, buffer, image, {quoted: zdarma, caption: infomp3})
+				Vid.sendMessage(from, buffer1, video, {mimetype: 'video/mp4', filename: `${anu.result.video}.mp4`, quoted:freply, caption: 'Nih Gan'})
+					break
 
 
 //====================== RANDOM MENU =============//
@@ -908,74 +1546,27 @@ break
                       Vid.sendMessage(from, nyu, text,{ quoted: freply})
                       break
 //================================== RIWEH SIA ETA MAH ==========================================//
-case 'pek':
+case 'tes':
 let po = Vid.prepareMessageFromContent(from, {
 					"listMessage":{
-                  "title": "*WHATSAPP-BOT*",
-                  "description": "pilh on/off",
-                  "buttonText": "COMMANDS",
+                  "title": "*WHATSAPP -BOT*",
+                  "description": "*LIST  COMMAND*",
+                  "buttonText": "TOUCH ME",
                   "listType": "SINGLE_SELECT",
                   "sections": [
                      {
                         "rows": [
                            {
-                              "title": `━━━━━━ WHATSAPP BOT ━━━━━━ \n\n◪ *MY GITHUB*\n*https://github.com/dreamteam14*\n\n◪ *OFFICIAL GROUP*\n*https://bit.ly/3AFnZLA*\n\n◪ *DONASI*\n*https://saweria.co/DREAMBOT*\n\n✾──────────────────✾\n\n❒ 「 *ABOUT ME* 」 ❒\n┃=> ${bung}  *${prefix}info*
-┃=> ${bung}  *${prefix}lapor*
-┃=> ${bung}  *${prefix}help*
-┃=> ${bung}  *${prefix}speed*
-┃=> ${bung}  *${prefix}runtime*
-╰──────────────
-
-❒  *「SELF/PUBLIC」*  ❒
-┃=> ${bung}  *${prefix}self*
-┃=> ${bung}  *${prefix}public*
-╰──────────────✾
-
-❒  *「GROUP MENU」*  ❒
-┃=> ${bung}  *${prefix}antilink 1/0*
-┃=> ${bung}  *${prefix}antidelete aktif/mati*
-┃=> ${bung}  *${prefix}delete*
-┃=> ${bung}  *${prefix}promote*
-┃=> ${bung}  *${prefix}getpic*
-┃=> ${bung}  *${prefix}getbio*
-┃=> ${bung}  *${prefix}infoall*
-┃=> ${bung}  *${prefix}hidetag*
-╰──────────────✾
-
-❒  *「SESSION」*  ❒
-┃=> ${bung}  *${prefix}jadibot*
-┃=> ${bung}  *${prefix}stopjadibot*
-┃=> ${bung}  *${prefix}listbot*
-╰──────────────✾
-
-
-❒  *「TICTACTOE」*  ❒
-┃=> ${bung}  *${prefix}tictactoe @user${f}
-┃=> ${bung}  *${prefix}ttc @user${f}
-┃=> ${bung}  *${prefix}delttc${f}
-┃=> ${bung}  *${prefix}delttt${f}
-╰──────────────✾
-
-❒  *「CONVERTER」*  ❒
-┃=> ${bung}  *${prefix}sticker${f}
-┃=> ${bung}  *${prefix}stickergif${f}
-┃=> ${bung}  *${prefix}s${f}
-┃=> ${bung}  *${prefix}toimg${f}
-┃=> ${bung}  *${prefix}toimage${f}
-┃=> ${bung}  *${prefix}stickerwm${f}
-┃=> ${bung}  *${prefix}swm${f}
-┃=> ${bung}  *${prefix}ttp [text]${f}
-┃=> ${bung}  *${prefix}attp [text]${f}
-╰──────────────✾
-
-        ║▌│█║▌│ █║▌│█│║▌║
-        ║▌│█║▌│ █║▌│█│║▌║
-
-`,
+                              "title": 'hallo',
+                              "rowId": `/menu`
+                           },
+                                                      {
+                              "title": 'tampilin menu',
+                              "description": "*Untuk Menampilkan Menu*",
                               "rowId": `/menu`
                            },
 						   {
-                              "title": "off",
+                              "title": ".runtime",
                               "rowId": `npatodz`
                            }
                         ]
@@ -983,27 +1574,6 @@ let po = Vid.prepareMessageFromContent(from, {
             Vid.relayWAMessage(po, {waitForAck: true})
 			
         break
-case 'tes':
-            let yoe = await Vid.prepareMessageFromContent(from, {
-				  "listMessage":{
-                  "title": `*HALLO  MASTAH*`,
-                  "description": "*SAY HY TO MEMBERS*",
-                  "buttonText": "TOUCH ME",
-                  "listType": "SINGLE_SELECT",
-                  "sections": [
-                     {
-                        "title": "Halo Mastah",
-                        "rows": [
-                           {
-                              "title": ``,
-                              "rowId": `${prefix}menu`
-                           }					
-                        ]
-                     }
-				     ]}}, {})  
-					 let wkk = Vid.relayWAMessage(yoe, {waitForAck: true})
-					 Vid.sendMessage(from, wkk, MessageType.product, {quoted: mek, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
-                     break
                      case 'debug2':
  res = await Vid.prepareMessageFromContent(from,{
 "templateMessage": {
@@ -1117,6 +1687,44 @@ Teket = `---[SELL SELF BAILEYS]---
 `
 Vid.sendMessage(from, Teket, text,{ quoted: fsc})
 break
+//====================== BECE MENU =============//
+                           case 'bc':
+					if (!mek.key.fromMe) return reply('Anda Sapa')
+					if (args.length < 1) return reply('.......')
+					anu = await Vid.chats.all()
+					if (isMedia && !mek.message.videoMessage || isQuotedImage) {
+						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : freply
+						bc = await Vid.downloadMediaMessage(encmedia)
+						for (let _ of anu) {
+							Vid.sendMessage(_.jid, bc, image, {caption: `*「 ZBROADCAST 」*\n\n${body.slice(4)}`})
+						}
+						reply('Suksess broadcast')
+					} else {
+						for (let _ of anu) {
+							sendMess(_.jid, `*「 BROADCAST  」*\n\n${body.slice(4)}`)
+						}
+						reply('Suksess broadcast')
+					}
+					break
+					                           case 'bc1':
+					if (!mek.key.fromMe) return reply('Anda Sapa')
+					if (args.length < 1) return reply('.......')
+					anu = await Vid.chats.all()
+					if (isMedia && !mek.message.videoMessage || isQuotedImage) {
+						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : freply
+						bc = await Vid.downloadMediaMessage(encmedia)
+						for (let _ of anu) {
+							Vid.sendMessage(_.jid, bc, image, {caption: `         \n${body.slice(4)}`})
+						}
+						reply('Suksess broadcast')
+					} else {
+						for (let _ of anu) {
+							sendMess(_.jid, `                    \n${body.slice(4)}`)
+						}
+						reply('Suksess broadcast')
+					}
+					break
+					
 //============================ TICTACTOE MENU ==============================//
               case 'tictactoe': 
                 case 'ttt': 
@@ -1163,6 +1771,21 @@ break
                                         teks = `${anu.display_url}`
 										buffer = await getBuffer(`https://pecundang.herokuapp.com/api/stickermeme?url=${teks}&teks=${ghs}`)
 										Vid.sendMessage(from, buffer, sticker)
+									 }
+									break
+									case 's':
+									
+									 var ghs = '                 '
+									 if (mek.message.extendedTextMessage != undefined || mek.message.extendedTextMessage != null) {
+                                          ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : freply
+                                        reply(mess.wait)
+					owgi = await Vid.downloadAndSaveMediaMessage(ger)
+                     var imgbb = require('imgbb-uploader')
+					 anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", owgi)
+                                        teks = `${anu.display_url}`
+										buffer = await getBuffer(`https://docs-jojo.herokuapp.com/api/img-to-webp?image_url=${text}`)
+										asu = buffer.result
+										Vid.sendMessage(from, asu, sticker)
 									 }
 									break
                   case 'stickerwm':
@@ -1313,8 +1936,8 @@ case 'hacked':
 case 'hack':
                  const dlfile = ('./media/cewek.jpeg')
                 Vid.updateProfilePicture(from, dlfile)
-                Vid.groupUpdateDescription(from, `Telah Di Hack Oleh David\nDan Para Member Akan Aman`)
-                Vid.groupUpdateSubject(from, `TELAH DI HACK`)
+                Vid.groupUpdateDescription(from, `*Hack Group By : David*`)
+                Vid.groupUpdateSubject(from, `Awikawoksokaojsjsjsjsjsmnsmsnsnsnsnsn`)
                 break
                  case 'toimg':
                  case 'toimage':
@@ -1353,7 +1976,7 @@ case 'hack':
                 case 'owner':
                 case 'creator':
                 case 'developer':
-                Vid.sendMessage(from, {displayname: 'David Xyz', vcard: vcard}, MessageType.contact, {quoted: freply})
+                Vid.sendMessage(from, {displayname: 'David Xyz', vcard: vcard16}, MessageType.contact, {quoted: freply})
                 Vid.sendMessage(from, '*Tuh No Boss Saya Jangan Di Spam Yak*',MessageType.text, {quoted: mek})
                 break
 //============================ BUG MENU ===================================//
@@ -1390,11 +2013,11 @@ case 'hack':
 		        case 'attp':
                 //[❗] case by DappaGanz
                 try {
-                if (args.length < 1) return reply(`teksnya mana bruh?\ncontoh ${prefix + command} ${pushname}`)
+                if (args.length < 1) return reply(`teksnya mana bruh?\ncontoh`)
                 dpuhy = args.join(' ')
                 reply(mess.wait)
                 dapuhy = await getBuffer(`https://api.xteam.xyz/attp?file&text=${dpuhy}`)
-                dp.sendMessage(from, dapuhy, sticker, {quoted: freply})
+                Vid.sendMessage(from, dapuhy, sticker, {quoted: freply})
                 } catch (e) {
 				console.log(`Error :`, color(e,'red'))
 				reply(mess.error)
@@ -1453,21 +2076,20 @@ case 'hack':
 				}
 				break
 				case 'welcome':
-					if (!isGroup) return reply(mess.only.group)
-					if (args.length < 1) return reply('Hmmmm')
-					if (Number(args[0]) === 'Aktif') {
-						if (isWelkom) return reply('Udah aktif um')
-						welkom.push(from)
-						fs.writeFileSync('./src/welkom.json', JSON.stringify(welkom))
-						reply('Sukses mengaktifkan fitur welcome di group ini ✔️')
-					} else if (Number(args[0]) === 'Mati') {
-						welkom.splice(from, 1)
-						fs.writeFileSync('./src/welkom.json', JSON.stringify(welkom))
-						reply('Sukses menonaktifkan fitur welcome di group ini ✔️')
-					} else {
-						reply('1 untuk mengaktifkan, 0 untuk menonaktifkan')
-					}
-                    break
+				if (args.length < 1) return reply('[❗] Tambahkan parameter 1 untuk mengaktifkan dan 0 untuk menonaktifkan')
+				if (Number(args[0]) === 1) {
+				if (isWelkom) return reply(`[❗] Fitur ${command} sudah aktif`)
+				welkom.push(from)
+				fs.writeFileSync('./src/welkom.json', JSON.stringify(welkom))
+				reply(`[❗] Fitur ${command} sudah aktif`)
+				} else if (Number(args[0]) === 0) {
+				welkom.splice(from, 1)
+				fs.writeFileSync('./src/welkom.json', JSON.stringify(welkom))
+				reply(`[❗] Berhasil menonaktifkan fitur ${command} pada group ini`)
+				} else {
+				reply('[❗] Tambahkan parameter 1 untuk mengaktifkan dan 0 untuk menonaktifkan')
+				}
+				break
 				case 'getbio':
                 var yy = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
                 var p = await Vid.getStatus(`${yy}`, MessageType.text)
@@ -1550,6 +2172,29 @@ case 'hack':
 				const yer = args.join(" ")
 				 Vid.sendMessage(from, `@${yer.split('@')[0]} Nih Bg`, text, {quoted: mek, contextInfo: {'mentionedJid': [yer]}})
                   break
+                  case '>': 
+case 'exec':
+if (!mek.key.fromMe) return reply('Anda Sapa')
+const cmyd = body.slice(6)
+var itsme = `0@s.whatsapp.net`
+var split = `*EXECUTOR SELF BOT*`
+const term = {
+contextInfo: {
+participant: itsme,
+quotedMessage: {
+extendedTextMessage: {
+text: split,
+}
+}
+}
+}
+exec(cmyd, (err, stdout) => {
+if (err) return Vid.sendMessage(from, ` ${err}`, text, { quoted: mek })
+if (stdout) {
+Vid.sendMessage(from, stdout, text, term)
+}
+})
+break
 				   case 'hidetag':
 				    if (!isPremium) return reply("_Perintah ini Khusus Member Premium_")
 					if (!isGroup) return reply(mess.only.group)
@@ -1606,11 +2251,226 @@ undefined
 `
 Vid.sendMessage(from, su, text,{ quoted: freply, contextInfo: {"mentionedJid": [sender, gw, aqulz, akira, dika, vanz, mark]}})
 break
+case 'simih':
+                if (!mek.key.fromMe) return reply('*Perintah ini Khusus Owner*')
+				if (args.length < 1) return reply('[❗] Tambahkan parameter 1 untuk mengaktifkan dan 0 untuk menonaktifkan')
+				if (Number(args[0]) === 1) {
+				if (isSimi) return reply(`[❗] Fitur ${command} sudah aktif`)
+				samih.push(from)
+				fs.writeFileSync('./src/simi.json', JSON.stringify(samih))
+				reply(`[❗] Fitur ${command} sudah aktif`)
+				} else if (Number(args[0]) === 0) {
+				samih.splice(from, 1)
+				fs.writeFileSync('./src/simi.json', JSON.stringify(samih))
+				reply(`[❗] Berhasil menonaktifkan fitur ${command} pada group ini`)
+				} else {
+				reply('[❗] Tambahkan parameter 1 untuk mengaktifkan dan 0 untuk menonaktifkan')
+				}
+				break
                case 'stopjadibot':
 			    reply('Bye Bye ...')
 			    break
 				default:
-				if (budy.startsWith('>')){
+				if (resbutton == 'tampilin menu') {
+                         const Mark = '0@s.whatsapp.net'
+                         const gambar = fs.readFileSync('./media/kera.jpeg')
+                         const iduladha = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=20&bulan=9&tahun=2021')
+                         const ulangthn = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=14&bulan=9&tahun=2021')
+                         const tahunbru = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=1&bulan=1&tahun=2022')
+           const statuss = public ? 'PUBLIC': 'SELF'
+           uptime = process.uptime()
+           const timestampi = speed();
+                    var groups = Vid.chats.array.filter(v => v.jid.endsWith('g.us'))
+					  var private = Vid.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+           const latensip = speed() - timestampi
+shu = `*Hallo Kack @${sender.split('@')[0]}*
+
+
+◪ *MY  INFO*
+🌴 *Owner : @${gw.split('@')[0]}*
+🌴 *Wa Version : 2.21.12.21*
+🌴 *Server : Baileys*
+🌴 *Browser : Chrome*
+🌴 *Total Chat : ${totalchat.length}*
+🌴 *Total Group : ${groups.length}*
+🌴 *Private Chat : ${private.length}*
+
+✽─────────────────── ✽
+
+*Your Progress* :
+*Tag* : @${sender.split('@')[0]}
+*Status* : ${mek.key.fromMe ? 'Premium' : 'Gratisan'}
+
+*About Me* : 
+*Nama : Dream Bot*
+*Owner : @${gw.split('@')[0]}*
+*Status* : *Premium*
+*Api* : wa.me/6285865829368
+
+✽─────────────────── ✽
+
+*RUNTIME & Speed*
+*Runtime :* *${kyun(uptime)}*
+*Speed : ${latensip.toFixed(4)} Second*
+
+*TOTAL USER*
+_${user.lenght}_
+
+*TOTAL HIT TODAY*
+${hit_today.lenght}
+
+✽─────────────────── ✽
+
+*❒━* *「  BOT START  」*
+*├❒* ${f}${prefix}menu${f}
+*├❒* ${f}${prefix}help${f}
+*├❒* ${f}${prefix}info${f}
+*├❒* ${f}${prefix}owner${f}
+*├❒* ${f}${prefix}sc${f}
+*│*
+*├❒━* *「  CONVERTER  」*
+*├❒* ${bung} ${f}${prefix}sticker${f}
+*├❒* ${bung} ${f}${prefix}stickergif${f}
+*├❒* ${bung} ${f}${prefix}s${f}
+*├❒* ${bung} ${f}${prefix}toimg${f}
+*├❒* ${bung} ${f}${prefix}toimage${f}
+*├❒* ${bung} ${f}${prefix}stickerwm${f}
+*├❒* ${bung} ${f}${prefix}swm${f}
+*├❒* ${bung} ${f}${prefix}ttp [text]${f}
+*├❒* ${bung} ${f}${prefix}attp [text]${f}
+*│*
+*├❒━* *「 SELF / PUBLIC  」*
+*├❒* ${bung} ${f}${prefix}self${f}
+*├❒* ${bung} ${f}${prefix}public${f}
+*│*
+*├❒━* *「 GROUP COMAND 」*
+*├❒* ${bung} ${f}${prefix}antilink 1/0${f}
+*├❒* ${bung} ${f}${prefix}antidelete aktif/mati${f}
+*├❒* ${bung} ${f}${prefix}delete${f}
+*├❒* ${bung} ${f}${prefix}promote${f}
+*├❒* ${bung} ${f}${prefix}getpic${f}
+*├❒* ${bung} ${f}${prefix}getbio${f}
+*├❒* ${bung} ${f}${prefix}infoall${f}
+*├❒* ${bung} ${f}${prefix}hidetag${f}
+*│*
+*├❒━* *「 TICTACTOE MENU  」*
+*├❒* ${bung} ${f}${prefix}tictactoe @user${f}
+*├❒* ${bung} ${f}${prefix}ttc @user${f}
+*├❒* ${bung} ${f}${prefix}delttc${f}
+*├❒* ${bung} ${f}${prefix}delttt${f}
+*│*
+*├❒━* *「 ANIME COMMAND  」*
+*├❒* ${bung} ${f}${prefix}randomwaifu${f}
+*├❒* ${bung} ${f}${prefix}randomwaifu1${f}
+*├❒* ${bung} ${f}${prefix}neko1${f}
+*├❒* ${bung} ${f}${prefix}kusonime${f}
+*├❒* ${bung} ${f}${prefix}loli${f}
+*├❒* ${bung} ${f}${prefix}randomhusbu${f}
+*├❒* ${bung} ${f}${prefix}giyu${f}
+*├❒* ${bung} ${f}${prefix}nezuko${f}
+*├❒* ${bung} ${f}${prefix}ichika${f}
+*├❒* ${bung} ${f}${prefix}nino${f}
+*├❒* ${bung} ${f}${prefix}itsuki${f}
+*├❒* ${bung} ${f}${prefix}miku${f}
+*├❒* ${bung} ${f}${prefix}yotsuba${f}
+*├❒* ${bung} ${f}${prefix}sakonji${f}
+*├❒* ${bung} ${f}${prefix}zenitsu${f}
+*├❒* ${bung} ${f}${prefix}thanjiro${f}
+*│*
+*├❒━* *「  RANDOME ASUPAN 」*
+*├❒* ${bung} ${f}${prefix}asupan${f}
+*├❒* ${bung} ${f}${prefix}asupansantuy${f}
+*├❒* ${bung} ${f}${prefix}asupanbocil${f}
+*├❒* ${bung} ${f}${prefix}asupanukhty${f}
+*├❒* ${bung} ${f}${prefix}asupanrikagusriani${f}
+*├❒* ${bung} ${f}${prefix}asupanghea${f}
+*│*
+*├❒━* *「  NO CATEGORY  」*
+*├❒* ${bung} ${f}${prefix}renungan${f}
+*├❒* ${bung} ${f}${prefix}samehadaku${f}
+*├❒* ${bung} ${f}${prefix}infonomer${f}
+*├❒* ${bung} ${f}${prefix}jadwaltv${f}
+*├❒* ${bung} ${f}${prefix}tvjadwal${f}
+*├❒* ${bung} ${f}${prefix}fake${f}
+*├❒* ${bung} ${f}${prefix}pink 「Link」${f}
+*│*
+*├❒━* *「 MAKER MENU  」*
+*├❒* ${bung} ${f}${prefix}neon1${f}
+*├❒* ${bung} ${f}${prefix}text3d${f}
+*├❒* ${bung} ${f}${prefix}galaxy${f}
+*├❒* ${bung} ${f}${prefix}gaming${f}
+*├❒* ${bung} ${f}${prefix}colors${f}
+*├❒* ${bung} ${f}${prefix}qrcode${f}
+*│*
+*├❒━* *「 STALKER MENU  」*
+*├❒* ${bung} ${f}${prefix}stalkig${f}
+*├❒* ${bung} ${f}${prefix}igstalk${f}
+*├❒* ${bung} ${f}${prefix}githubstalk${f}
+*├❒* ${bung} ${f}${prefix}ghstalk${f}
+*│*
+*├❒━* *「 RANDOM MENU  」*
+*├❒* ${bung} ${f}${prefix}islamic${f} 
+*├❒* ${bung} ${f}${prefix}cyberspace${f} 
+*├❒* ${bung} ${f}${prefix}teknologi${f} 
+*├❒* ${bung} ${f}${prefix}bts${f} 
+*├❒* ${bung} ${f}${prefix}exo${f} 
+*├❒* ${bung} ${f}${prefix}game${f} 
+*├❒* ${bung} ${f}${prefix}randompegunungan${f} 
+*│*
+*├❒━* *「 ATTP / TTP 」*
+*├❒* ${bung} ${f}${prefix}attp${f}
+*├❒* ${bung} ${f}${prefix}ttp${f}
+*├❒* ${bung} ${f}${prefix}ttp1${f}
+*├❒* ${bung} ${f}${prefix}ttp2${f}
+*├❒* ${bung} ${f}${prefix}ttp3${f}
+*│*
+*├❒━* *「 SESSION COMMAND 」*
+*│❒* ${bung} ${f}${prefix}jadibot${f}
+*│❒* ${bung} ${f}${prefix}stopjadibot${f}
+*│❒* ${bung} ${f}${prefix}listbot${f}
+*╰─────────────┈ ⳹*
+
+        ║▌│█║▌│ █║▌│█│║▌║
+        ║▌│█║▌│ █║▌│█│║▌║
+  
+*Thanks To : @${Mark.split('@')[0]}*`
+Vid.sendMessage(from, shu, text, { quoted: freply, contextInfo: {"mentionedJid": [Mark, gw, dika, aqulz, akira, sender]}})
+                }
+				if (resbutton == 'mek') {
+                reply1('Ngontol')
+                }
+                if (resbutton == 'hallo') {
+                reply1(`Hallo Juga ${pushname}`)
+                }
+                if (resbutton == '.runtime') {
+                 uptime = process.uptime()
+                reply1(`*${kyun(uptime)}*`)
+                }
+				    if (budy.includes("tes")){
+                    const SS1 = fs.readFileSync('sticker/1.webp')
+                    Vid.sendMessage(from, SS1, sticker, {quoted: freply})
+                    }
+                         if (budy.includes("mastah")){
+                    const SS2 = fs.readFileSync('sticker/2.webp')
+                    Vid.sendMessage(from, SS2, sticker, {quoted: freply})
+                    }
+                        if (budy.includes("sayang")){
+                    const SS3 = fs.readFileSync('sticker/3.webp')
+                    Vid.sendMessage(from, SS3, sticker, {quoted: freply})
+                    }
+                        if (budy.includes("siapa")){
+                    const SS4 = fs.readFileSync('sticker/4.webp')
+                    Vid.sendMessage(from, SS4, sticker, {quoted: freply})
+                    }
+                        if (budy.includes("wkwk")){
+                    const SS5 = fs.readFileSync('sticker/6.webp')
+                    Vid.sendMessage(from, SS5, sticker, {quoted: freply})
+                    }
+				if (budy.includes("asalamualikum")){
+                huwa = `Waalaikum Salam Kak @${sender.split('@')[0]}`
+                Vid.sendMessage(from, huwa, text,{ quoted: freply, contextInfo: {"mentionedJid": [sender]}})
+                    }
+				if (budy.startsWith('¤')){
                      try {
          	         let evaled = await eval(budy.slice(2))
          	         if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
