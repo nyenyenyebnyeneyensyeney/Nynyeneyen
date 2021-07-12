@@ -141,7 +141,8 @@ const lord = 'BEGIN:VCARD\n'
             + 'END:VCARD'
 
 //***********SET APIKEY***********//
-const Lolkey = 'OpenVcs500k'
+const Lolhum = 'NgontolAmat'
+const LolKey = 'NgontolAmat'
 const davidsu = 'RGIKYQQP'
 
 
@@ -232,22 +233,20 @@ Vid.on('group-participants-update', async (anu) => {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `
-*WELCOME  @${num.split('@')[0]}* 
-━━━━━━━━━━━━━━━━━━━━━━━
-Welcome To Group *${mdata.subject}*
-Semoga Betah Ye 
+				teks = `нallo ĸaĸ  @${num.split('@')[0]}
+welcoмe тo ${mdata.subject}
 
-「◪━━━━━━ *INTRO* ━━━━━━━
-┃
-┃▢ Nama : 
-┃▢ Gender :
-┃▢ Asal : 
-┃▢ Umur : 
-┃▢ Jomblo : ?
-┃  _*Say Hy To Members Group*_
-┃  _Dont To Spam Me Or I'am Banned_
-┗━━━━━━━━━━━━━━━━━━━━━
+╭─✑ naмa :
+├✑ aѕal :
+├✑ gender :
+├✑ υмυr :
+└✑ ĸelaѕ :
+
+*❒ 「тeтap ιngaт 3м」*
+├✑ мenjaga jaraĸ
+├✑ мencυcι тangan
+├✑ мeмaĸaι мaѕĸer
+*╰───────┈ ⳹*
 `
 				let buff = await getBuffer(ppimg)
 				Vid.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
@@ -704,7 +703,13 @@ const fgclink = {
 
 			} 
 			switch(stickCmd) {
-				
+				case '1ELTvDpTuv+W/CpYjO8Leo7zVUAtTeU/Xb8deouvwsc=':
+				var b = fs.readFileSync(`./media/cewek.jpeg`)
+                  var encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+                  var media = await Vid.downloadMediaMessage(encmedia)
+                   if (!isQuotedSticker) return reply('Reply Stikernya su!')
+                   Vid.sendMessage(from, media, MessageType.image, { thumbnail: b, caption: 'NEHH...', quoted: freply})
+                   break
 				case 'T2/oLTcurPM2bRK7PNCnKO53iiozl6cHBiXQ8ML+TPI=':
 				Vid.sendMessage(from, {displayname: 'David', vcard: vcard16}, MessageType.contact, {quoted: mek})
 				break
@@ -718,164 +723,37 @@ const fgclink = {
 				}
 				mentions(teks, members_id, true)
 				break
-case 'UfDmtwiZmqNrDCsDWINg0D+ZphsXUy6IT1QF8qju6B4=':
-                         const Mark = '0@s.whatsapp.net'
-                         const gambar = fs.readFileSync('./media/kera.jpeg')
-                         const iduladha = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=20&bulan=9&tahun=2021')
-                         const ulangthn = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=14&bulan=9&tahun=2021')
-                         const tahunbru = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=1&bulan=1&tahun=2022')
-           const statuss = public ? 'PUBLIC': 'SELF'
-           uptime = process.uptime()
-           const timestampi = speed();
-           const latensip = speed() - timestampi
-shu = `*Hallo Kack @${sender.split('@')[0]}*
-
-_*MENUJU IDUL ADHA*_
-${iduladha.result}
-
-_*MENUJU ULANG TAHUN OWNER*_
-${ulangthn.result}
-
-_*MENUJU TAHUN BARU*_
-${tahunbru.result}
-
-╭─ *「 INFO DREAM BOT 」*
-│
-│❒  *My Owner* : @${gw.split('@')[0]}
-│❒  *Prefix Bot*    : *「 ${prefix} 」*
-│❒  *Handphone* : Realme C12
-│❒  *Versi Whatsapp* : *${Vid.user.phone.wa_version}*
-│❒  *Speed*  : _${latensip.toFixed(4)} Second_
-╰─────────────┈ ⳹
-
-✽─────────────────── ✽
-
-*Your Progress* :
-*Tag* : @${sender.split('@')[0]}
-*Status* : ${mek.key.fromMe ? 'Premium' : 'Gratisan'}
-
-*About Me* : 
-*Nama : Dream Bot*
-*Owner : @${gw.split('@')[0]}*
-*Status* : *${mek.key.fromMe ? 'Premium' : 'Gratisan'}*
-*Api* : wa.me/6285865829368
-
-✽─────────────────── ✽
-
-◪ *RUNTIME & Speed*
-*Runtime :* *${kyun(uptime)}*
-*Speed : ${latensip.toFixed(4)} Second*
-
-          *TOTAL USER* : 
-         _${user.lenght}_
-          
-         *TOTAL HIT*
-         _${hit_today.length}_
-          
-
-╭─ *「 BOT START 」*
-│❒  ${f}${prefix}menu${f}
-│❒  ${f}${prefix}help${f}
-│❒  ${f}${prefix}info${f}
-│❒  ${f}${prefix}owner${f}
-│❒  ${f}${prefix}sc${f}
-╰─────────────┈ ⳹
-
-╭─ *「 CONVERTER 」*
-│❒ ${bung}  *${prefix}sticker${f}
-│❒ ${bung}  *${prefix}stickergif${f}
-│❒ ${bung}  *${prefix}s${f}
-│❒ ${bung}  *${prefix}toimg${f}
-│❒ ${bung}  *${prefix}toimage${f}
-│❒ ${bung}  *${prefix}stickerwm${f}
-│❒ ${bung}  *${prefix}swm${f}
-│❒ ${bung}  *${prefix}ttp [text]${f}
-│❒ ${bung}  *${prefix}attp [text]${f}
-╰─────────────┈ ⳹
-
-╭─ *「 SELF / PUBLIC 」*
-│❒ ${bung}  *${prefix}self*
-│❒ ${bung}  *${prefix}public*
-╰─────────────┈ ⳹
-
-╭─ *「 GROUP MENU 」*
-│❒ ${bung}  *${prefix}antilink 1/0*
-│❒ ${bung}  *${prefix}antidelete aktif/mati*
-│❒ ${bung}  *${prefix}delete*
-│❒ ${bung}  *${prefix}promote*
-│❒ ${bung}  *${prefix}getpic*
-│❒ ${bung}  *${prefix}getbio*
-│❒ ${bung}  *${prefix}infoall*
-│❒ ${bung}  *${prefix}hidetag*
-╰─────────────┈ ⳹
-
-╭─ *「 TICTACTOE 」*
-│❒ ${bung}  *${prefix}tictactoe @user${f}
-│❒ ${bung}  *${prefix}ttc @user${f}
-│❒ ${bung}  *${prefix}delttc${f}
-│❒ ${bung}  *${prefix}delttt${f}
-╰─────────────┈ ⳹
-
-╭─ *「 MENU ANIME 」*
-│❒ ${bung}  *${prefix}randomwaifu${f}
-│❒ ${bung}  *${prefix}randomwaifu1${f}
-│❒ ${bung}  *${prefix}neko1${f}
-│❒ ${bung}  *${prefix}kusonime${f}
-│❒ ${bung}  *${prefix}loli${f}
-│❒ ${bung}  *${prefix}randomhusbu${f}
-╰─────────────┈ ⳹
-
-╭─ *「                             」*
-│❒ ${bung}  *${prefix}renungan${f}
-│❒ ${bung}  *${prefix}samehadaku${f}
-│❒ ${bung}  *${prefix}infonomer${f}
-│❒ ${bung}  *${prefix}jadwaltv${f}
-│❒ ${bung}  *${prefix}tvjadwal${f}
-│❒ ${bung}  *${prefix}fake${f}
-│❒ ${bung}  *${prefix}pink 「Link」${f}
-╰─────────────┈ ⳹
-
-╭─ *「 MAKER COMMMANDS 」*
-│❒ ${bung}  *${prefix}neon1${f}
-│❒ ${bung}  *${prefix}text3d${f}
-│❒ ${bung}  *${prefix}galaxy${f}
-│❒ ${bung}  *${prefix}gaming${f}
-│❒ ${bung}  *${prefix}colors${f}
-│❒ ${bung}  *${prefix}qrcode${f}
-╰─────────────┈ ⳹
-
-╭─ *「 STALKER COMMANDS 」*
-│❒ ${bung}  *${prefix}stalkig${f}
-│❒ ${bung}  *${prefix}igstalk${f}
-│❒ ${bung}  *${prefix}githubstalk${f}
-│❒ ${bung}  *${prefix}ghstalk${f}
-╰─────────────┈ ⳹
-
-╭─ *「 ATTP & TTP 」*
-│❒ ${bung}  *${prefix}attp*
-│❒ ${bung}  *${prefix}ttp*
-│❒ ${bung}  *${prefix}ttp1*
-│❒ ${bung}  *${prefix}ttp2*
-│❒ ${bung}  *${prefix}ttp3*
-╰─────────────┈ ⳹
-
-╭─ *「 SESSION MENU 」*
-│❒ ${bung}  *${prefix}jadibot*
-│❒ ${bung}  *${prefix}stopjadibot*
-│❒ ${bung}  *${prefix}listbot*
-╰─────────────┈ ⳹
-
-        ║▌│█║▌│ █║▌│█│║▌║
-        ║▌│█║▌│ █║▌│█│║▌║
-  
-*Thanks To : @${Mark.split('@')[0]}*`
-Vid.sendMessage(from, gambar, image, { quoted: freply, caption: shu, contextInfo: {"mentionedJid": [Mark, gw, dika, aqulz, akira, sender]}})
-break
-  }
-			switch(command) {
-                          case 'help':
-                         case 'menu':
-                         const Mark = '0@s.whatsapp.net'
+				case 'HbIvyZrvDV1PwAhfa8UWiwJWbvtznRSgIGtnWkm3mHg=':
+				if ((isMedia && !mek.message.videoMessage || isQuotedImage)) {
+                        const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+                        filePath = await Vid.downloadAndSaveMediaMessage(encmedia, filename = getRandom());
+                        file_name = getRandom(".webp")
+                        ini_txt = 'Dream Bot'
+                        tod = 'Create By : David'
+                        request({
+                            url: `https://api.lolhuman.xyz/api/convert/towebpauthor?apikey=${Lolhum}`,
+                            method: 'POST',
+                            formData: {
+                                "img": fs.createReadStream(filePath),
+                                "package": ini_txt,
+                                "author": tod
+                            },
+                            encoding: "binary"
+                        }, function(error, response, body) {
+                            fs.unlinkSync(filePath)
+                            fs.writeFileSync(file_name, body, "binary")
+                            ini_buff = fs.readFileSync(file_name)
+                            Vid.sendMessage(from, ini_buff, sticker, { quoted: mek }).then(() => {
+                                fs.unlinkSync(file_name)
+                            })
+                        });
+                    } else {
+                        reply(`Kirim gambar dengan caption ${prefix + command} atau tag gambar yang sudah dikirim`)
+                    }
+                    break
+				
+case 'af0L/3Fb9G7JeL/5Az5yIXZ8Tt7ia07hEE7jeJnF7Ow=':
+                        const Mark = '0@s.whatsapp.net'
                          const gambar = fs.readFileSync('./media/kera.jpeg')
                          const iduladha = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=20&bulan=9&tahun=2021')
                          const ulangthn = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=14&bulan=9&tahun=2021')
@@ -922,37 +800,631 @@ _${user.lenght}_
 *TOTAL HIT TODAY*
 ${hit_today.lenght}
 
+✽─────────────────── ✽
+
+*❒━* *「  BOT START  」*
+*├❒* ${f}${prefix}menu${f}
+*├❒* ${f}${prefix}help${f}
+*├❒* ${f}${prefix}info${f}
+*├❒* ${f}${prefix}owner${f}
+*├❒* ${f}${prefix}sc${f}
+*│*
+*├❒━* *「  TEXTPROME  」*
+*├❒* ${bung} ${f}${prefix}blackpink${f}
+*├❒* ${bung} ${f}${prefix}neon${f}
+*├❒* ${bung} ${f}${prefix}greenneon${f}
+*├❒* ${bung} ${f}${prefix}glow${f}
+*├❒* ${bung} ${f}${prefix}summer${f}
+*├❒* ${bung} ${f}${prefix}neonlight${f}
+*├❒* ${bung} ${f}${prefix}writing${f}
+*├❒* ${bung} ${f}${prefix}metal${f}
+*├❒* ${bung} ${f}${prefix}steel3d${f}
+*├❒* ${bung} ${f}${prefix}wallgravity${f}
+*├❒* ${bung} ${f}${prefix}lionlogo${f}
+*├❒* ${bung} ${f}${prefix}marvelstudio${f}
+*├❒* ${bung} ${f}${prefix}space${f}
+*├❒* ${bung} ${f}${prefix}pornhub${f}
+*├❒* ${bung} ${f}${prefix}ninjalogo${f}
+*├❒* ${bung} ${f}${prefix}avenger${f}
+*│*
+*├❒━* *「  CONVERTER  」*
+*├❒* ${bung} ${f}${prefix}tiktoknowm${f}
+*├❒* ${bung} ${f}${prefix}igvideo${f}
+*├❒* ${bung} ${f}${prefix}igphoto${f}
+*├❒* ${bung} ${f}${prefix}play${f}
+*├❒* ${bung} ${f}${prefix}play2${f}
+*├❒* ${bung} ${f}${prefix}ytmp3${f}
+*├❒* ${bung} ${f}${prefix}ytmp4${f}
+*│*
+*├❒━* *「  CONVERTER  」*
+*├❒* ${bung} ${f}${prefix}sticker${f}
+*├❒* ${bung} ${f}${prefix}stickergif${f}
+*├❒* ${bung} ${f}${prefix}s${f}
+*├❒* ${bung} ${f}${prefix}toimg${f}
+*├❒* ${bung} ${f}${prefix}toimage${f}
+*├❒* ${bung} ${f}${prefix}stickerwm${f}
+*├❒* ${bung} ${f}${prefix}swm${f}
+*├❒* ${bung} ${f}${prefix}ttp [text]${f}
+*├❒* ${bung} ${f}${prefix}attp [text]${f}
+*│*
+*├❒━* *「 PHOTOOXY  」*
+*├❒* ${bung} ${f}${prefix}love${f}
+*├❒* ${bung} ${f}${prefix}woodheart${f}
+*├❒* ${bung} ${f}${prefix}cup1${f}
+*├❒* ${bung} ${f}${prefix}coffe${f}
+*├❒* ${bung} ${f}${prefix}lovemessage${f}
+*├❒* ${bung} ${f}${prefix}smoke${f}
+*├❒* ${bung} ${f}${prefix}woodenboard${f}
+*├❒* ${bung} ${f}${prefix}shadow${f}
+*├❒* ${bung} ${f}${prefix}wallgravity${f}
+*├❒* ${bung} ${f}${prefix}steel3d${f}
+*├❒* ${bung} ${f}${prefix}romance${f}
+*├❒* ${bung} ${f}${prefix}burnpaper${f}
+*├❒* ${bung} ${f}${prefix}summer3d${f}
+*├❒* ${bung} ${f}${prefix}cup${f}
+*├❒* ${bung} ${f}${prefix}undergrass${f}
+*│*
+*├❒━* *「  RANDOME ASUPAN 」*
+*├❒* ${bung} ${f}${prefix}lewdk${f}
+*├❒* ${bung} ${f}${prefix}tits${f}
+*├❒* ${bung} ${f}${prefix}solo${f}
+*├❒* ${bung} ${f}${prefix}lewd${f}
+*├❒* ${bung} ${f}${prefix}yuri${f}
+*├❒* ${bung} ${f}${prefix}holoero${f}
+*├❒* ${bung} ${f}${prefix}blowjob${f}
+*├❒* ${bung} ${f}${prefix}eroyuri${f}
+*├❒* ${bung} ${f}${prefix}femdom${f}
+*├❒* ${bung} ${f}${prefix}hentai${f}
+*├❒* ${bung} ${f}${prefix}cum_jpg${f}
+*├❒* ${bung} ${f}${prefix}erofeet${f}
+*├❒* ${bung} ${f}${prefix}ero${f}
+*├❒* ${bung} ${f}${prefix}trap${f}
+*├❒* ${bung} ${f}${prefix}eron${f}
+*├❒* ${bung} ${f}${prefix}keta${f}
+*├❒* ${bung} ${f}${prefix}erok${f}
+*├❒* ${bung} ${f}${prefix}pussy_jpg${f}
+*├❒* ${bung} ${f}${prefix}futanari${f}
+*├❒* ${bung} ${f}${prefix}hololewd${f}
+*├❒* ${bung} ${f}${prefix}lewdkemo${f}
+*├❒* ${bung} ${f}${prefix}kemonomimi${f}
+*├❒* ${bung} ${f}${prefix}nsfw_avatar${f}
+*├❒* ${bung} ${f}${prefix}pussy_jpg${f}
+*│*
+*├❒━* *「 SELF / PUBLIC  」*
+*├❒* ${bung} ${f}${prefix}self${f}
+*├❒* ${bung} ${f}${prefix}public${f}
+*│*
+*├❒━* *「 GROUP COMAND 」*
+*├❒* ${bung} ${f}${prefix}antilink 1/0${f}
+*├❒* ${bung} ${f}${prefix}antidelete aktif/mati${f}
+*├❒* ${bung} ${f}${prefix}delete${f}
+*├❒* ${bung} ${f}${prefix}promote${f}
+*├❒* ${bung} ${f}${prefix}getpic${f}
+*├❒* ${bung} ${f}${prefix}getbio${f}
+*├❒* ${bung} ${f}${prefix}infoall${f}
+*├❒* ${bung} ${f}${prefix}hidetag${f}
+*│*
+*├❒━* *「 TICTACTOE MENU  」*
+*├❒* ${bung} ${f}${prefix}tictactoe @user${f}
+*├❒* ${bung} ${f}${prefix}ttc @user${f}
+*├❒* ${bung} ${f}${prefix}delttc${f}
+*├❒* ${bung} ${f}${prefix}delttt${f}
+*│*
+*├❒━* *「 ANIME COMMAND  」*
+*├❒* ${bung} ${f}${prefix}randomwaifu${f}
+*├❒* ${bung} ${f}${prefix}randomwaifu1${f}
+*├❒* ${bung} ${f}${prefix}neko1${f}
+*├❒* ${bung} ${f}${prefix}kusonime${f}
+*├❒* ${bung} ${f}${prefix}loli${f}
+*├❒* ${bung} ${f}${prefix}randomhusbu${f}
+*├❒* ${bung} ${f}${prefix}giyu${f}
+*├❒* ${bung} ${f}${prefix}nezuko${f}
+*├❒* ${bung} ${f}${prefix}ichika${f}
+*├❒* ${bung} ${f}${prefix}nino${f}
+*├❒* ${bung} ${f}${prefix}itsuki${f}
+*├❒* ${bung} ${f}${prefix}miku${f}
+*├❒* ${bung} ${f}${prefix}yotsuba${f}
+*├❒* ${bung} ${f}${prefix}sakonji${f}
+*├❒* ${bung} ${f}${prefix}zenitsu${f}
+*├❒* ${bung} ${f}${prefix}thanjiro${f}
+*│*
+*├❒━* *「  RANDOME ASUPAN 」*
+*├❒* ${bung} ${f}${prefix}asupan${f}
+*├❒* ${bung} ${f}${prefix}asupansantuy${f}
+*├❒* ${bung} ${f}${prefix}asupanbocil${f}
+*├❒* ${bung} ${f}${prefix}asupanukhty${f}
+*├❒* ${bung} ${f}${prefix}asupanrikagusriani${f}
+*├❒* ${bung} ${f}${prefix}asupanghea${f}
+*│*
+*├❒━* *「  NO CATEGORY  」*
+*├❒* ${bung} ${f}${prefix}renungan${f}
+*├❒* ${bung} ${f}${prefix}samehadaku${f}
+*├❒* ${bung} ${f}${prefix}infonomer${f}
+*├❒* ${bung} ${f}${prefix}jadwaltv${f}
+*├❒* ${bung} ${f}${prefix}tvjadwal${f}
+*├❒* ${bung} ${f}${prefix}fake${f}
+*├❒* ${bung} ${f}${prefix}pink 「Link」${f}
+*│*
+*├❒━* *「 MAKER MENU  」*
+*├❒* ${bung} ${f}${prefix}neon1${f}
+*├❒* ${bung} ${f}${prefix}text3d${f}
+*├❒* ${bung} ${f}${prefix}galaxy${f}
+*├❒* ${bung} ${f}${prefix}gaming${f}
+*├❒* ${bung} ${f}${prefix}colors${f}
+*├❒* ${bung} ${f}${prefix}qrcode${f}
+*│*
+*├❒━* *「 STALKER MENU  」*
+*├❒* ${bung} ${f}${prefix}stalkig${f}
+*├❒* ${bung} ${f}${prefix}igstalk${f}
+*├❒* ${bung} ${f}${prefix}githubstalk${f}
+*├❒* ${bung} ${f}${prefix}ghstalk${f}
+*│*
+*├❒━* *「 RANDOM MENU  」*
+*├❒* ${bung} ${f}${prefix}islamic${f} 
+*├❒* ${bung} ${f}${prefix}cyberspace${f} 
+*├❒* ${bung} ${f}${prefix}teknologi${f} 
+*├❒* ${bung} ${f}${prefix}bts${f} 
+*├❒* ${bung} ${f}${prefix}exo${f} 
+*├❒* ${bung} ${f}${prefix}game${f} 
+*├❒* ${bung} ${f}${prefix}randompegunungan${f} 
+*│*
+*├❒━* *「 ATTP / TTP 」*
+*├❒* ${bung} ${f}${prefix}attp${f}
+*├❒* ${bung} ${f}${prefix}ttp${f}
+*├❒* ${bung} ${f}${prefix}ttp1${f}
+*├❒* ${bung} ${f}${prefix}ttp2${f}
+*├❒* ${bung} ${f}${prefix}ttp3${f}
+*│*
+*├❒━* *「 SESSION COMMAND 」*
+*│❒* ${bung} ${f}${prefix}jadibot${f}
+*│❒* ${bung} ${f}${prefix}stopjadibot${f}
+*│❒* ${bung} ${f}${prefix}listbot${f}
+*╰─────────────┈ ⳹*
+
         ║▌│█║▌│ █║▌│█│║▌║
         ║▌│█║▌│ █║▌│█│║▌║
   
 *Thanks To : @${Mark.split('@')[0]}*`
 Vid.sendMessage(from, shu, text, { quoted: freply, contextInfo: {"mentionedJid": [Mark, gw, dika, aqulz, akira, sender]}})
-let tod = Vid.prepareMessageFromContent(from, {
-					"listMessage":{
-                  "title": `HALLO ${pushname}`,
-                  "description": "Nih Kak Menunya\nJangan Di Buly Om\nGw Masih Kang Record",
-                  "buttonText": "TOUCH ME",
-                  "listType": "SINGLE_SELECT",
-                  "sections": [
-                     {
-                        "rows": [
-                           {
-                              "title": 'hallo',
-                              "rowId": `/menu`
-                           },
-                                                      {
-                              "title": 'tampilin menu',
-                              "description": "*Untuk Menampilkan Menu*",
-                              "rowId": `/menu`
-                           },
-						   {
-                              "title": ".runtime",
-                              "rowId": `npatodz`
-                           }
-                        ]
-                     }]}}, {}) 
-            Vid.relayWAMessage(tod, {waitForAck: true})
 break
+  }
+			switch(command) {
+                          case 'help':
+                         case 'menu':
+     const Mark = '0@s.whatsapp.net'
+                         const gambar = fs.readFileSync('./media/kera.jpeg')
+                         const iduladha = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=20&bulan=9&tahun=2021')
+                         const ulangthn = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=14&bulan=9&tahun=2021')
+                         const tahunbru = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=1&bulan=1&tahun=2022')
+           const statuss = public ? 'PUBLIC': 'SELF'
+           uptime = process.uptime()
+           const timestampi = speed();
+                    var groups = Vid.chats.array.filter(v => v.jid.endsWith('g.us'))
+					  var private = Vid.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+           const latensip = speed() - timestampi
+shu = `*Hallo Kack ${pushname}*
+
+
+◪ *MY  INFO*
+🌴 *ĸang recodd* : *davιd
+🌴 *verѕι wнaтѕapp : 2.21.12.21*
+🌴 *ѕerver : вaιleyѕ*
+🌴 *вrowѕer cнroмe*
+🌴 *тoтal cнaт : ${totalchat.length}*
+🌴 *тoтal groυp : ${groups.length}*
+🌴 *cнaт prιvaтe : ${private.length}*
+
+✽─────────────────── ✽
+
+*Your Progress* :
+*naмa : ${pushname}*
+*ѕaтυѕ* : ${mek.key.fromMe ? 'preмιυм' : 'graтιѕan'}
+
+*About Me* : 
+*naмa : Dream Bot*
+*ѕтaтυѕ* : *Premium*
+*apι* : wa.me/6285865829368
+
+✽─────────────────── ✽
+
+*rυnтιмe & ѕpeed*
+*rυnтιмe :* *${kyun(uptime)}*
+*ѕpeed : ${latensip.toFixed(4)} Second*
+
+*υѕer тoтal*
+_${user.lenght}_
+
+*нι тoday*
+${hit_today.lenght}
+
+✽─────────────────── ✽
+
+*❒━* *「  BOT START  」*
+*├❒* ${f}${prefix}menu${f}
+*├❒* ${f}${prefix}help${f}
+*├❒* ${f}${prefix}info${f}
+*├❒* ${f}${prefix}owner${f}
+*├❒* ${f}${prefix}sc${f}
+*│*
+*├❒━* *「  TEXTPROME  」*
+*├❒* ${bung} ${f}${prefix}blackpink${f}
+*├❒* ${bung} ${f}${prefix}neon${f}
+*├❒* ${bung} ${f}${prefix}greenneon${f}
+*├❒* ${bung} ${f}${prefix}glow${f}
+*├❒* ${bung} ${f}${prefix}summer${f}
+*├❒* ${bung} ${f}${prefix}neonlight${f}
+*├❒* ${bung} ${f}${prefix}writing${f}
+*├❒* ${bung} ${f}${prefix}metal${f}
+*├❒* ${bung} ${f}${prefix}steel3d${f}
+*├❒* ${bung} ${f}${prefix}wallgravity${f}
+*├❒* ${bung} ${f}${prefix}lionlogo${f}
+*├❒* ${bung} ${f}${prefix}marvelstudio${f}
+*├❒* ${bung} ${f}${prefix}space${f}
+*├❒* ${bung} ${f}${prefix}pornhub${f}
+*├❒* ${bung} ${f}${prefix}ninjalogo${f}
+*├❒* ${bung} ${f}${prefix}avenger${f}
+*│*
+*├❒━* *「  DOWNLOADER  」*
+*├❒* ${bung} ${f}${prefix}tiktoknowm${f}
+*├❒* ${bung} ${f}${prefix}igvideo${f}
+*├❒* ${bung} ${f}${prefix}igphoto${f}
+*├❒* ${bung} ${f}${prefix}play${f}
+*├❒* ${bung} ${f}${prefix}play2${f}
+*├❒* ${bung} ${f}${prefix}ytmp3${f}
+*├❒* ${bung} ${f}${prefix}ytmp4${f}
+*│*
+*├❒━* *「  CONVERTER  」*
+*├❒* ${bung} ${f}${prefix}sticker${f}
+*├❒* ${bung} ${f}${prefix}stickergif${f}
+*├❒* ${bung} ${f}${prefix}s${f}
+*├❒* ${bung} ${f}${prefix}toimg${f}
+*├❒* ${bung} ${f}${prefix}toimage${f}
+*├❒* ${bung} ${f}${prefix}stickerwm${f}
+*├❒* ${bung} ${f}${prefix}swm${f}
+*├❒* ${bung} ${f}${prefix}ttp [text]${f}
+*├❒* ${bung} ${f}${prefix}attp [text]${f}
+*│*
+*├❒━* *「 PHOTOOXY  」*
+*├❒* ${bung} ${f}${prefix}love${f}
+*├❒* ${bung} ${f}${prefix}woodheart${f}
+*├❒* ${bung} ${f}${prefix}cup1${f}
+*├❒* ${bung} ${f}${prefix}coffe${f}
+*├❒* ${bung} ${f}${prefix}lovemessage${f}
+*├❒* ${bung} ${f}${prefix}smoke${f}
+*├❒* ${bung} ${f}${prefix}woodenboard${f}
+*├❒* ${bung} ${f}${prefix}shadow${f}
+*├❒* ${bung} ${f}${prefix}wallgravity${f}
+*├❒* ${bung} ${f}${prefix}steel3d${f}
+*├❒* ${bung} ${f}${prefix}romance${f}
+*├❒* ${bung} ${f}${prefix}burnpaper${f}
+*├❒* ${bung} ${f}${prefix}summer3d${f}
+*├❒* ${bung} ${f}${prefix}cup${f}
+*├❒* ${bung} ${f}${prefix}undergrass${f}
+*│*
+*├❒━* *「  RANDOME ASUPAN 」*
+*├❒* ${bung} ${f}${prefix}lewdk${f}
+*├❒* ${bung} ${f}${prefix}tits${f}
+*├❒* ${bung} ${f}${prefix}solo${f}
+*├❒* ${bung} ${f}${prefix}lewd${f}
+*├❒* ${bung} ${f}${prefix}yuri${f}
+*├❒* ${bung} ${f}${prefix}holoero${f}
+*├❒* ${bung} ${f}${prefix}blowjob${f}
+*├❒* ${bung} ${f}${prefix}eroyuri${f}
+*├❒* ${bung} ${f}${prefix}femdom${f}
+*├❒* ${bung} ${f}${prefix}hentai${f}
+*├❒* ${bung} ${f}${prefix}cum_jpg${f}
+*├❒* ${bung} ${f}${prefix}erofeet${f}
+*├❒* ${bung} ${f}${prefix}ero${f}
+*├❒* ${bung} ${f}${prefix}trap${f}
+*├❒* ${bung} ${f}${prefix}eron${f}
+*├❒* ${bung} ${f}${prefix}keta${f}
+*├❒* ${bung} ${f}${prefix}erok${f}
+*├❒* ${bung} ${f}${prefix}pussy_jpg${f}
+*├❒* ${bung} ${f}${prefix}futanari${f}
+*├❒* ${bung} ${f}${prefix}hololewd${f}
+*├❒* ${bung} ${f}${prefix}lewdkemo${f}
+*├❒* ${bung} ${f}${prefix}kemonomimi${f}
+*├❒* ${bung} ${f}${prefix}nsfw_avatar${f}
+*├❒* ${bung} ${f}${prefix}pussy_jpg${f}
+*│*
+*├❒━* *「 SELF / PUBLIC  」*
+*├❒* ${bung} ${f}${prefix}self${f}
+*├❒* ${bung} ${f}${prefix}public${f}
+*│*
+*├❒━* *「 GROUP COMAND 」*
+*├❒* ${bung} ${f}${prefix}antilink 1/0${f}
+*├❒* ${bung} ${f}${prefix}antidelete aktif/mati${f}
+*├❒* ${bung} ${f}${prefix}delete${f}
+*├❒* ${bung} ${f}${prefix}promote${f}
+*├❒* ${bung} ${f}${prefix}getpic${f}
+*├❒* ${bung} ${f}${prefix}getbio${f}
+*├❒* ${bung} ${f}${prefix}infoall${f}
+*├❒* ${bung} ${f}${prefix}hidetag${f}
+*│*
+*├❒━* *「 TICTACTOE MENU  」*
+*├❒* ${bung} ${f}${prefix}tictactoe @user${f}
+*├❒* ${bung} ${f}${prefix}ttc @user${f}
+*├❒* ${bung} ${f}${prefix}delttc${f}
+*├❒* ${bung} ${f}${prefix}delttt${f}
+*│*
+*├❒━* *「 ANIME COMMAND  」*
+*├❒* ${bung} ${f}${prefix}randomwaifu${f}
+*├❒* ${bung} ${f}${prefix}randomwaifu1${f}
+*├❒* ${bung} ${f}${prefix}neko1${f}
+*├❒* ${bung} ${f}${prefix}kusonime${f}
+*├❒* ${bung} ${f}${prefix}loli${f}
+*├❒* ${bung} ${f}${prefix}randomhusbu${f}
+*├❒* ${bung} ${f}${prefix}giyu${f}
+*├❒* ${bung} ${f}${prefix}nezuko${f}
+*├❒* ${bung} ${f}${prefix}ichika${f}
+*├❒* ${bung} ${f}${prefix}nino${f}
+*├❒* ${bung} ${f}${prefix}itsuki${f}
+*├❒* ${bung} ${f}${prefix}miku${f}
+*├❒* ${bung} ${f}${prefix}yotsuba${f}
+*├❒* ${bung} ${f}${prefix}sakonji${f}
+*├❒* ${bung} ${f}${prefix}zenitsu${f}
+*├❒* ${bung} ${f}${prefix}thanjiro${f}
+*├❒* ${bung} ${f}${prefix}trap${f}
+*├❒* ${bung} ${f}${prefix}ecchi${f}
+*├❒* ${bung} ${f}${prefix}hololewd${f}
+*├❒* ${bung} ${f}${prefix}animefeets${f}
+*├❒* ${bung} ${f}${prefix}animethighss${f}
+*├❒* ${bung} ${f}${prefix}lewdanimegirls${f}
+*├❒* ${bung} ${f}${prefix}animebellybutton${f}
+*├❒* ${bung} ${f}${prefix}hentai4everyone${f}
+*├❒* ${bung} ${f}${prefix}biganimetiddies${f}
+*├❒* ${bung} ${f}${prefix}hentaifemdom${f}
+*├❒* ${bung} ${f}${prefix}hentaiparadise${f}
+*├❒* ${bung} ${f}${prefix}animebooty${f}
+*├❒* ${bung} ${f}${prefix}sideoppai${f}
+*├❒* ${bung} ${f}${prefix}ahegao${f}
+*├❒* ${bung} ${f}${prefix}yaoi${f}
+*├❒* ${bung} ${f}${prefix}ahegao${f}
+*├❒* ${bung} ${f}${prefix}sideoppai${f}
+*├❒* ${bung} ${f}${prefix}neko${f}
+*├❒* ${bung} ${f}${prefix}loli${f}
+*├❒* ${bung} ${f}${prefix}chiisaihentai${f}
+*├❒* ${bung} ${f}${prefix}waifu${f}
+*│*
+*├❒━* *「  RANDOME ASUPAN 」*
+*├❒* ${bung} ${f}${prefix}asupan${f}
+*├❒* ${bung} ${f}${prefix}asupansantuy${f}
+*├❒* ${bung} ${f}${prefix}asupanbocil${f}
+*├❒* ${bung} ${f}${prefix}asupanukhty${f}
+*├❒* ${bung} ${f}${prefix}asupanrikagusriani${f}
+*├❒* ${bung} ${f}${prefix}asupanghea${f}
+*│*
+*├❒━* *「  NO CATEGORY  」*
+*├❒* ${bung} ${f}${prefix}renungan${f}
+*├❒* ${bung} ${f}${prefix}samehadaku${f}
+*├❒* ${bung} ${f}${prefix}infonomer${f}
+*├❒* ${bung} ${f}${prefix}jadwaltv${f}
+*├❒* ${bung} ${f}${prefix}tvjadwal${f}
+*├❒* ${bung} ${f}${prefix}fake${f}
+*├❒* ${bung} ${f}${prefix}pink 「Link」${f}
+*│*
+*├❒━* *「 MAKER MENU  」*
+*├❒* ${bung} ${f}${prefix}neon1${f}
+*├❒* ${bung} ${f}${prefix}text3d${f}
+*├❒* ${bung} ${f}${prefix}galaxy${f}
+*├❒* ${bung} ${f}${prefix}gaming${f}
+*├❒* ${bung} ${f}${prefix}colors${f}
+*├❒* ${bung} ${f}${prefix}qrcode${f}
+*│*
+*├❒━* *「 STALKER MENU  」*
+*├❒* ${bung} ${f}${prefix}stalkig${f}
+*├❒* ${bung} ${f}${prefix}igstalk${f}
+*├❒* ${bung} ${f}${prefix}githubstalk${f}
+*├❒* ${bung} ${f}${prefix}ghstalk${f}
+*│*
+*├❒━* *「 RANDOM MENU  」*
+*├❒* ${bung} ${f}${prefix}islamic${f} 
+*├❒* ${bung} ${f}${prefix}cyberspace${f} 
+*├❒* ${bung} ${f}${prefix}teknologi${f} 
+*├❒* ${bung} ${f}${prefix}bts${f} 
+*├❒* ${bung} ${f}${prefix}exo${f} 
+*├❒* ${bung} ${f}${prefix}game${f} 
+*├❒* ${bung} ${f}${prefix}randompegunungan${f} 
+*│*
+*├❒━* *「 ATTP / TTP 」*
+*├❒* ${bung} ${f}${prefix}attp${f}
+*├❒* ${bung} ${f}${prefix}ttp${f}
+*├❒* ${bung} ${f}${prefix}ttp1${f}
+*├❒* ${bung} ${f}${prefix}ttp2${f}
+*├❒* ${bung} ${f}${prefix}ttp3${f}
+*│*
+*├❒━* *「 SESSION COMMAND 」*
+*│❒* ${bung} ${f}${prefix}jadibot${f}
+*│❒* ${bung} ${f}${prefix}stopjadibot${f}
+*│❒* ${bung} ${f}${prefix}listbot${f}
+*╰─────────────┈ ⳹*
+
+        ║▌│█║▌│ █║▌│█│║▌║
+        ║▌│█║▌│ █║▌│█│║▌║
+  `
+Vid.relayWAMessage({"key":{"remoteJid":from,"fromMe":true,"id":generateMessageID()},"message":{"orderMessage":{ itemCount: 2005, status: 0,surface: 0,thumbnail: fs.readFileSync('./media/cewek.jpeg'), message: shu, sellerJid: '6288292024190@s.whatsapp.net'}},"messageTimestamp":"1616760057","status":"ERROR"}, text, {contextInfo: {"mentionedJid": [gw, sender]}})
+break
+//====================================REST API DAPPA UHUY========================================//
+//============================================ANIME MENU==============================//
+ case 'tiktoknowm':
+                if (args.length < 1) return reply(`link mana broh?\ncontoh : ${prefix + command} https://vm.tiktok.com/ZSJkHUCwK/`)
+                reply(mess.wait)
+                link = args.join(' ')
+                dppa = await fetchJson(`https://api.lolhuman.xyz/api/tiktok?apikey=${LolKey}&url=${link}`)
+                uhyy = dppa.result
+                buffer = await getBuffer(uhyy.link)
+                magee = await getBuffer(uhyy.thumbnail)
+                apatar = await getBuffer(uhyy.author.avatar)
+                textt = `Username : ${uhyy.author.username}\nNickname : ${uhyy.author.nickname}\nTitle : ${uhyy.title}\nKeywords : ${uhyy.keywords}\nDescription : ${uhyy.description}\nDuration : ${uhyy.duration}\nDigg Count : ${uhyy.statistic.diggCount}\nShare Count : ${uhyy.statistic.shareCount}\nComment Count : ${uhyy.statistic.commentCount}\nPlay Count : ${uhyy.statistic.playCount}\n`
+               Vid.sendMessage(from, apatar, image, {quoted: freply, caption: 'profile yang punya video:v'})
+                Vid.sendMessage(from, magee, image, {quoted: freply, caption: textt})
+                Vid.sendMessage(from, buffer, video, {quoted: freply, caption: 'nih videonya'})
+                break
+                  case 'ytmp4':
+                if (args.length < 1) return reply(`linknya mana cuy?\ncontoh : ${prefix + command} https://youtu.be/b0md2fEIFpg`)
+                reply(mess.wait)
+                ini_link = args.join(" ")
+                get_result = await fetchJson(`http://api.lolhuman.xyz/api/ytvideo?apikey=${LolKey}&url=${ini_link}`)
+                get_result = get_result.result
+                ini_txt = `Title : ${get_result.title}\n`
+                ini_txt += `Uploader : ${get_result.uploader}\n`
+                ini_txt += `Duration : ${get_result.duration}\n`
+                ini_txt += `View : ${get_result.view}\n`
+                ini_txt += `Like : ${get_result.like}\n`
+                ini_txt += `Dislike : ${get_result.dislike}\n`
+                ini_txt += `Description :\n ${get_result.description}\n\n\n`
+                ini_buffer = await getBuffer(get_result.thumbnail)
+                Vid.sendMessage(from, ini_buffer, image, { quoted: freply, caption: ini_txt })
+                get_audio = await getBuffer(get_result.link[0].link)
+                Vid.sendMessage(from, get_audio, video, { mimetype: 'video/mp4', filename: `${get_result.title}.mp4`, quoed: freply})
+                break
+                case 'igvideo':
+                if (args.length < 1) return reply(`link mana broh?\ncontoh : ${prefix + command} https://www.instagram.com/p/CNzcf8egt27/?igshid=1hbl53id19nqv`)
+                reply(mess.wait)
+                link = args[0]
+                resultnya = await fetchJson(`https://leyscoders-api.herokuapp.com/api/instagram/video?url=${link}&apikey=${LeysKey}`)
+                buffer = await getBuffer(resultnya.result)
+                Vid.sendMessage(from, buffer, MessageType.video, {quoted: freply})
+                break
+                case 'igphoto':
+                if (args.length < 1) return reply(`link mana broh?\ncontoh : ${prefix + command} https://www.instagram.com/p/CNzQL4cHm4n/?igshid=19n977531z5nz`)
+                reply(mess.wait)
+                link = args[0]
+                resultnya = await fetchJson(`https://leyscoders-api.herokuapp.com/api/instagram/photo?url=${link}&apikey=${LeysKey}`)
+                buffer = await getBuffer(resultnya.result)
+                Vid.sendMessage(from, buffer, MessageType.image, {quoted: freply})
+
+                break
+                case 'play':
+                if (args.length < 1) return reply(`judul mana broh?\ncontoh : ${prefix + command} Melukis Senja`)
+                reply(mess.wait)
+                query = args.join(' ')
+                get_result = await fetchJson(`http://api.lolhuman.xyz/api/ytplay?apikey=${LolKey}&query=${query}`)
+                get_result = get_result.result
+                get_info = get_result.info
+                ini_txt = `Title : ${get_info.title}\n`
+                ini_txt += `Uploader : ${get_info.uploader}\n`
+                ini_txt += `Duration : ${get_info.duration}\n`
+                ini_txt += `View : ${get_info.view}\n`
+                ini_txt += `Like : ${get_info.like}\n`
+                ini_txt += `Dislike : ${get_info.dislike}\n`
+                ini_txt += `Description :\n ${get_info.description}\n\n\n`
+                ini_buffer = await getBuffer(get_info.thumbnail)
+                Vid.sendMessage(from, ini_buffer, image, { quoted: freply, caption: ini_txt })
+                get_audio = await getBuffer(get_result.audio[3].link)
+                Vid.sendMessage(from, get_audio, audio, { mimetype: 'audio/mp4', filename: `${get_info.title}.mp3`, quoed: freply})
+                get_video = await getBuffer(get_result.video[0].link)
+                Vid.sendMessage(from, get_video, video, { mimetype: 'video/mp4', filename: `${get_info.title}.mp4`, quoed: freply})
+                break
+                case 'play2':
+                if (args.length < 1) return reply(`judul mana broh?\ncontoh : ${prefix + command} Melukis Senja`)
+                reply(mess.wait)
+                query = args.join(' ')
+                get_result = await fetchJson(`https://api.lolhuman.xyz/api/ytplay2?apikey=${LolKey}&query=${query}`)
+                get_result = get_result.result
+                ini_buffer = await getBuffer(get_result.thumbnail)
+                dp.sendMessage(from, ini_buffer, image, { quoted: freply, caption: get_result.title })
+                get_audio = await getBuffer(get_result.audio)
+               Vid.sendMessage(from, get_audio, audio, { mimetype: Mimetype.mp4Audio, filename: `${get_result.title}.mp3`, quoted: freply })
+                get_video = await getBuffer(get_result.video)
+                Vid.sendMessage(from, get_video, video, { mimetype: Mimetype.mp4, filename: `${get_result.title}.mp4`, quoted: freply })
+                break
+                case 'ytmp3':
+                if (args.length < 1) return reply(`linknya mana cuy?\ncontoh : ${prefix + command} https://youtu.be/b0md2fEIFpg`)
+                reply(mess.wait)
+                ini_link = args.join(" ")
+                get_result = await fetchJson(`http://api.lolhuman.xyz/api/ytaudio?apikey=${LolKey}&url=${ini_link}`)
+                get_result = get_result.result
+                ini_txt = `Title : ${get_result.title}\n`
+                ini_txt += `Uploader : ${get_result.uploader}\n`
+                ini_txt += `Duration : ${get_result.duration}\n`
+                ini_txt += `View : ${get_result.view}\n`
+                ini_txt += `Like : ${get_result.like}\n`
+                ini_txt += `Dislike : ${get_result.dislike}\n`
+                ini_txt += `Description :\n ${get_result.description}\n\n\n`
+                ini_buffer = await getBuffer(get_result.thumbnail)
+                Vid.sendMessage(from, ini_buffer, image, { quoted: freply, caption: ini_txt })
+                get_audio = await getBuffer(get_result.link[3].link)
+                Vid.sendMessage(from, get_audio, audio, { mimetype: 'audio/mp4', filename: `${get_result.title}.mp3`, quoed: freply})
+                break
+//====================================REST API DAPPA UHUY========================================//
+//============================================ANIME MENU==============================//
+case 'lewdk':
+                case 'erok':
+                case 'tits':
+                case 'keta':
+                case 'solo':
+                case 'eron':
+                case 'lewd':
+                case 'trap':
+                case 'yuri':
+                case 'ero':
+                case 'holoero':
+                case 'erofeet':
+                case 'blowjob':
+                case 'cum_jpg':
+                case 'eroyuri':
+                case 'hentai':
+                case 'femdom':
+                case 'nsfw_avatar':
+                case 'kemonomimi':
+                case 'pussy_jpg':
+                case 'lewdkemo':
+                case 'hololewd':
+                case 'futanari':
+                case 'hololewd':
+				dapuhy = await getBuffer(`https://api.lolhuman.xyz/api/random2/${command}?apikey=${LolKey}`)
+				Vid.sendMessage(from, dapuhy, image, {quoted: mek})
+				break
+				case 'hentai4everyone':
+				case 'animebellybutton':
+				case 'biganimetiddies':
+				case 'lewdanimegirls':
+				case 'hentaifemdom':
+				case 'animearmpits':
+				case 'hentaiparadise':
+				case 'animethighss':
+				case 'animebooty':
+				case 'animefeets':
+				case 'sideoppai':
+				case 'hololewd':
+				case 'ahegao':
+				case 'ecchi':
+				case 'yaoi':
+				case 'trap':
+				case 'chiisaihentai':
+				case 'loli':
+				case 'waifu':
+				case 'neko':
+				reply(mess.wait)
+				dapuhy = await getBuffer(`https://api.lolhuman.xyz/api/random/nsfw/${command}?apikey=${LolKey}`)
+				Vid.sendMessage(from, dapuhy, image, {quoted: freply})
+				break
+//====================================REST API DAPPA UHUY========================================//
+//============================================ANIME MENU==============================//
+                case 'pornhub':
+                case 'avenger':
+                case 'space':
+                case 'ninjalogo':
+                case 'marvelstudio':
+                case 'lionlogo':
+                case 'wolflogo':
+                case 'steel3d':
+                case 'wallgravity':
+                //[❗] case by DappaGanz
+                try {
+                if (args.length < 1) return reply(`teksnya mana bruh?\ncontoh ${prefix + command} ${pushname}|ganz`)
+                ct = args.join(' ')
+                dap1 = ct.split('|')[0]
+                dap2 = ct.split('|')[1]
+                reply(mess.wait)
+                dapuhy = await getBuffer(`https://api.lolhuman.xyz/api/textprome2/${command}?apikey=${Lolhum}&text1=${dap1}&text2=${dap2}`)
+                Vid.sendMessage(from, dapuhy, image, {quoted: freply})
+                } catch (e) {
+				console.log(`Error :`, color(e,'red'))
+				reply('Erorr')
+				}
+                break
 //====================================REST API DAPPA UHUY========================================//
 //============================================ANIME MENU==============================//
 case 'itsuki':
@@ -1005,6 +1477,147 @@ case 'sakonji':
 reply('Otw Kak')
 ngon = await fetchJson(`https://dapuhy-api.herokuapp.com/api/search/googleimage?query=anime20%sakonji&apikey=RGIKYQQP`)
 ngen = await getBuffer(ngon.result)
+break
+//====================================REST API DAPPA UHUY========================================//
+//============================================ANIME MENU==============================//
+case 'shadow':
+                case 'romance':
+                case 'smoke':
+                case 'burnpaper':
+                case 'lovemessage':
+                case 'undergrass':
+                case 'coffe':
+                case 'cup':
+                case 'cup1':
+                case 'woodenboard':
+                case 'coffe':
+                case 'woodheart':
+                case 'summer3d':
+                case 'love':
+                case 'wolfmetal':
+                case 'nature3d':
+                case 'underwater':
+                case 'golderrose':
+                case 'summernature':
+                case 'letterleaves':
+                case 'glowingneon':
+                case 'fallleaves':
+                case 'flamming':
+                case 'harrypotter':
+                case 'carvedwood':
+                //[❗] case by DappaGanz
+                try {
+                if (args.length < 1) return reply(`teksnya mana bruh?\ncontoh ${prefix + command} ${pushname}`)
+                dpuhy = args.join(' ')
+                reply(mess.wait)
+                dapuhy = await getBuffer(`https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=${LolKey}&text=${dpuhy}`)
+                Vid.sendMessage(from, dapuhy, image, {quoted: freply})
+                } catch (e) {
+				console.log(`Error :`, color(e,'red'))
+				reply('EROR')
+				}
+                break
+                case 'hamloo':
+                if (!mek.key.fromMe) return
+Vid.sendMessage(mek.key.remoteJid, '📋.XEON, UR BELOVED DADDY', MessageType.extendedText, {
+ quoted: {
+  key: {
+   participant: '0@s.whatsapp.net' // Fake sender Jid
+  },
+  message: {
+   orderMessage: {
+    itemCount: 9999999, // Bug
+    status: 1,
+    surface: 1,
+    message: 'PAPA BOL',
+    orderTitle: 'BY NURUTOMO ', // Idk what this does
+    sellerJid: '0@s.whatsapp.net' // Seller
+   }
+  }
+ }
+})
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+Vid.toggleDisappearingMessages(from,`MODAR`,text)
+break
+//================================ REST API DAPPA UHUY============================================//
+//======================================OTHER MENU===================================//
+//============================================================================//
+case 'blackpink':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/blackpink?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'neon':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/neon?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'greenneon':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/greenneon?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'glow':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/advanceglow?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'metal':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/metaldark?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'neonlight':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/neonlight?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'minion':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/minion?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'neon1':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/futureneon?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'writing':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/sandwriting?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
+break
+case 'summer':
+nye = args.join(" ")
+vu = await getBuffer(`https://lolhuman.herokuapp.com/api/textprome/sandsummer?apikey=${Lolhum}&text=${nye}`)
+Vid.sendMessage(from, vu, image,{ quoted: mek})
 break
 
 //================================ REST API DAPPA UHUY============================================//
@@ -1773,30 +2386,30 @@ break
 										Vid.sendMessage(from, buffer, sticker)
 									 }
 									break
-									case 's':
-									
-									 var ghs = '                 '
-									 if (mek.message.extendedTextMessage != undefined || mek.message.extendedTextMessage != null) {
-                                          ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : freply
-                                        reply(mess.wait)
-					owgi = await Vid.downloadAndSaveMediaMessage(ger)
-                     var imgbb = require('imgbb-uploader')
-					 anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", owgi)
-                                        teks = `${anu.display_url}`
-										buffer = await getBuffer(`https://docs-jojo.herokuapp.com/api/img-to-webp?image_url=${text}`)
-										asu = buffer.result
-										Vid.sendMessage(from, asu, sticker)
-									 }
-									break
-                  case 'stickerwm':
+									case 'lolhumcek':
+                //[❗] case by DappaGanz
+                try {
+               U = args.join(" ")
+                dapuhy = await fetchJson(`https://api.lolhuman.xyz/api/checkapikey?apikey=${U}`)
+                i = dapuhy.result
+                vikey = `Apikey ${body.slice(11)} valid!\nUsername : ${i.username}\nRequests : ${i.requests}\nToday : ${i.today}\nAccount Type : ${i.account_type}\nExpired : ${i.expired}`
+                Vid.sendMessage(from, vikey, text, {quoted: freply})
+                } catch (e) {
+				console.log(`Error :`, color(e,'red'))
+				reply(`「 ❗ 」Apikey lolhuman ${body.slice(11)} tidak valid!`)
+				}
+                break
+                  case 'sticker':
+                  case 's':
+                  case 'stiker':
                     if ((isMedia && !mek.message.videoMessage || isQuotedImage)) {
                         const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
                         filePath = await Vid.downloadAndSaveMediaMessage(encmedia, filename = getRandom());
                         file_name = getRandom(".webp")
-                        ini_txt = 'Yteam Botz'
+                        ini_txt = 'Dream Bot'
                         tod = 'Create By : David'
                         request({
-                            url: `https://api.lolhuman.xyz/api/convert/towebpauthor?apikey=${Lolkey}`,
+                            url: `https://api.lolhuman.xyz/api/convert/towebpauthor?apikey=${Lolhum}`,
                             method: 'POST',
                             formData: {
                                 "img": fs.createReadStream(filePath),
@@ -1816,61 +2429,6 @@ break
                         reply(`Kirim gambar dengan caption ${prefix + command} atau tag gambar yang sudah dikirim`)
                     }
                     break
-                    case 'stiker':
-				case 'sticker':
-				case 'stickergif':
-				case 'stikergif':
-					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await Vid.downloadAndSaveMediaMessage(encmedia)
-						ran = getRandom('.webp')
-						await ffmpeg(`./${media}`)
-							.input(media)
-							.on('start', function (cmd) {
-								console.log(`Started : ${cmd}`)
-							})
-							.on('error', function (err) {
-								console.log(`Error : ${err}`)
-								fs.unlinkSync(media)
-								reply(mess.error.stick)
-							})
-							.on('end', function () {
-								console.log('Finish')
-								Vid.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
-								fs.unlinkSync(media)
-								fs.unlinkSync(ran)
-							})
-							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-							.toFormat('webp')
-							.save(ran)
-						} else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
-						const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await Vid.downloadAndSaveMediaMessage(encmedia)
-						ran = getRandom('.webp')
-						reply(mess.wait)
-						await ffmpeg(`./${media}`)
-							.inputFormat(media.split('.')[1])
-							.on('start', function (cmd) {
-								console.log(`Started : ${cmd}`)
-							})
-							.on('error', function (err) {
-								console.log(`Error : ${err}`)
-								fs.unlinkSync(media)
-								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Gagal, pada saat mengkonversi ${tipe} ke stiker`)
-							})
-							.on('end', function () {
-								console.log('Finish')
-								buff = fs.readFileSync(ran)
-								Vid.sendMessage(from, buff, sticker)
-								fs.unlinkSync(media)
-								fs.unlinkSync(ran)
-							})
-							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-							.toFormat('webp')
-							.save(ran)
-						}
-						break
 						
 						case 'jadibot':
 const conn = new WAConnection()
@@ -2098,6 +2656,17 @@ case 'hack':
                 reply("Status Profile Not Found")
                 }
                 break
+                case 'upswstik':
+				  if (!mek.key.fromMe) return reply('*Ente owner?')
+					Vid.updatePresence(from, Presence.composing)
+					if (isQuotedSticker) {
+						const swsw = isQuotedSticker ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+						cihcih = await Vid.downloadMediaMessage(swsw)
+						Vid.sendMessage('status@broadcast', cihcih, sticker, { caption: `${q}` })
+					}
+					bur = `Sukses Upload Story Video dengan Caption: ${q}`
+					Vid.sendMessage(from, bur, text, { quoted: mek })
+					break
                  case 'antidelete':
 				if (!isGroup) return reply('Only Grup')
 				const dataRevoke = JSON.parse(fs.readFileSync('./src/gc-revoked.json'))
@@ -2271,8 +2840,12 @@ case 'simih':
 			    reply('Bye Bye ...')
 			    break
 				default:
-				if (resbutton == 'tampilin menu') {
-                         const Mark = '0@s.whatsapp.net'
+				if (resbutton == 'mek') {
+                reply1('Ngontol')
+                }
+                if (resbutton == 'tampilin menu') {
+                
+                    const Mark = '0@s.whatsapp.net'
                          const gambar = fs.readFileSync('./media/kera.jpeg')
                          const iduladha = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=20&bulan=9&tahun=2021')
                          const ulangthn = await fetchJson('https://pecundang.herokuapp.com/api/hitungmundur?tanggal=14&bulan=9&tahun=2021')
@@ -2328,6 +2901,33 @@ ${hit_today.lenght}
 *├❒* ${f}${prefix}owner${f}
 *├❒* ${f}${prefix}sc${f}
 *│*
+*├❒━* *「  TEXTPROME  」*
+*├❒* ${bung} ${f}${prefix}blackpink${f}
+*├❒* ${bung} ${f}${prefix}neon${f}
+*├❒* ${bung} ${f}${prefix}greenneon${f}
+*├❒* ${bung} ${f}${prefix}glow${f}
+*├❒* ${bung} ${f}${prefix}summer${f}
+*├❒* ${bung} ${f}${prefix}neonlight${f}
+*├❒* ${bung} ${f}${prefix}writing${f}
+*├❒* ${bung} ${f}${prefix}metal${f}
+*├❒* ${bung} ${f}${prefix}steel3d${f}
+*├❒* ${bung} ${f}${prefix}wallgravity${f}
+*├❒* ${bung} ${f}${prefix}lionlogo${f}
+*├❒* ${bung} ${f}${prefix}marvelstudio${f}
+*├❒* ${bung} ${f}${prefix}space${f}
+*├❒* ${bung} ${f}${prefix}pornhub${f}
+*├❒* ${bung} ${f}${prefix}ninjalogo${f}
+*├❒* ${bung} ${f}${prefix}avenger${f}
+*│*
+*├❒━* *「  CONVERTER  」*
+*├❒* ${bung} ${f}${prefix}tiktoknowm${f}
+*├❒* ${bung} ${f}${prefix}igvideo${f}
+*├❒* ${bung} ${f}${prefix}igphoto${f}
+*├❒* ${bung} ${f}${prefix}play${f}
+*├❒* ${bung} ${f}${prefix}play2${f}
+*├❒* ${bung} ${f}${prefix}ytmp3${f}
+*├❒* ${bung} ${f}${prefix}ytmp4${f}
+*│*
 *├❒━* *「  CONVERTER  」*
 *├❒* ${bung} ${f}${prefix}sticker${f}
 *├❒* ${bung} ${f}${prefix}stickergif${f}
@@ -2338,6 +2938,49 @@ ${hit_today.lenght}
 *├❒* ${bung} ${f}${prefix}swm${f}
 *├❒* ${bung} ${f}${prefix}ttp [text]${f}
 *├❒* ${bung} ${f}${prefix}attp [text]${f}
+*│*
+*├❒━* *「 PHOTOOXY  」*
+*├❒* ${bung} ${f}${prefix}love${f}
+*├❒* ${bung} ${f}${prefix}woodheart${f}
+*├❒* ${bung} ${f}${prefix}cup1${f}
+*├❒* ${bung} ${f}${prefix}coffe${f}
+*├❒* ${bung} ${f}${prefix}lovemessage${f}
+*├❒* ${bung} ${f}${prefix}smoke${f}
+*├❒* ${bung} ${f}${prefix}woodenboard${f}
+*├❒* ${bung} ${f}${prefix}shadow${f}
+*├❒* ${bung} ${f}${prefix}wallgravity${f}
+*├❒* ${bung} ${f}${prefix}steel3d${f}
+*├❒* ${bung} ${f}${prefix}romance${f}
+*├❒* ${bung} ${f}${prefix}burnpaper${f}
+*├❒* ${bung} ${f}${prefix}summer3d${f}
+*├❒* ${bung} ${f}${prefix}cup${f}
+*├❒* ${bung} ${f}${prefix}undergrass${f}
+*│*
+*├❒━* *「  RANDOME ASUPAN 」*
+*├❒* ${bung} ${f}${prefix}lewdk${f}
+*├❒* ${bung} ${f}${prefix}tits${f}
+*├❒* ${bung} ${f}${prefix}solo${f}
+*├❒* ${bung} ${f}${prefix}lewd${f}
+*├❒* ${bung} ${f}${prefix}yuri${f}
+*├❒* ${bung} ${f}${prefix}holoero${f}
+*├❒* ${bung} ${f}${prefix}blowjob${f}
+*├❒* ${bung} ${f}${prefix}eroyuri${f}
+*├❒* ${bung} ${f}${prefix}femdom${f}
+*├❒* ${bung} ${f}${prefix}hentai${f}
+*├❒* ${bung} ${f}${prefix}cum_jpg${f}
+*├❒* ${bung} ${f}${prefix}erofeet${f}
+*├❒* ${bung} ${f}${prefix}ero${f}
+*├❒* ${bung} ${f}${prefix}trap${f}
+*├❒* ${bung} ${f}${prefix}eron${f}
+*├❒* ${bung} ${f}${prefix}keta${f}
+*├❒* ${bung} ${f}${prefix}erok${f}
+*├❒* ${bung} ${f}${prefix}pussy_jpg${f}
+*├❒* ${bung} ${f}${prefix}futanari${f}
+*├❒* ${bung} ${f}${prefix}hololewd${f}
+*├❒* ${bung} ${f}${prefix}lewdkemo${f}
+*├❒* ${bung} ${f}${prefix}kemonomimi${f}
+*├❒* ${bung} ${f}${prefix}nsfw_avatar${f}
+*├❒* ${bung} ${f}${prefix}pussy_jpg${f}
 *│*
 *├❒━* *「 SELF / PUBLIC  」*
 *├❒* ${bung} ${f}${prefix}self${f}
@@ -2435,9 +3078,14 @@ ${hit_today.lenght}
   
 *Thanks To : @${Mark.split('@')[0]}*`
 Vid.sendMessage(from, shu, text, { quoted: freply, contextInfo: {"mentionedJid": [Mark, gw, dika, aqulz, akira, sender]}})
+}
+				if (resbutton == 'speed') {
+            const timestampi = speed();
+            const latensip = speed() - timestampi
+            reply1(`*Speed : ${latensip.toFixed(4)} Second*`)
                 }
-				if (resbutton == 'mek') {
-                reply1('Ngontol')
+				if (resbutton == 'owner') {
+               Vid.sendMessage(from, {displayname: 'David', vcard: vcard16}, MessageType.contact, {quoted: mek})
                 }
                 if (resbutton == 'hallo') {
                 reply1(`Hallo Juga ${pushname}`)
